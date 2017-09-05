@@ -1,47 +1,51 @@
-import React from 'react';
-import FakeServer from '../FakeServer/FakeServer';
-import CommentInput from './CommentInput';
-import Comment from './Comment';
 
-var PropTypes = React.PropTypes;
 
-var CommentContainer = React.createClass({
+import React, {Component} 			from 'react';
+import PropTypes 								from 'prop-types';
+import FakeServer 							from '../FakeServer/FakeServer';
+import CommentInput 						from './CommentInput';
+import Comment 									from './Comment';
+
+
+class CommentContainer extends Component {
 	propTypes: {
 		postId: PropTypes.string.isRequired
-	},
-	getInitialState(){
-		return {
-			comments: []
-		};
-	},
+	}
+
+	constructor() {
+		super()
+		 this.state = {
+			 	comments: []
+		 	}
+		}
 
 	componentWillMount(){
 		var comments = this.getPostComments(this.props.postId);
 		this.setState({
 			comments: comments
 		});
-	},
-	getPostComments: function(postId){
+	}
+	getPostComments(postId) {
 		var server = new FakeServer();
 		return server.getPostComments(postId);
-	},
-	refreshComments: function(){
+	}
+	refreshCommennts() {
 		var server = new FakeServer();
 		var comments = server.getPostComments(this.props.postId);
 		this.setState({
 			comments: comments
 		});
-	},
+	}
 	handleAnnotationClick(id){
 		var domElement = document.getElementById(id);
 		//This will mess up the react-router hash history and throw a warning in the console
 		//But its easier than manually scrolling to the right element. :D
-		location.href='#' + id;
+		//location.href='#' + id;
 		domElement.className += ' blink';
 		domElement.addEventListener('animationend', function(){
 			this.classList.remove('blink');
 		});
-	},
+	}
 
 	/*There must be a better way of checking for prop changes and re-rendering*/
 	componentWillUpdate(nextProps){
@@ -50,7 +54,8 @@ var CommentContainer = React.createClass({
 				comments: this.getPostComments(nextProps.postId)
 			});
 		}
-	},
+	}
+
 	render() {
 		var self = this;
 		return(
@@ -66,6 +71,6 @@ var CommentContainer = React.createClass({
 			</div>
 		);
 	}
-});
+};
 
 export default CommentContainer;

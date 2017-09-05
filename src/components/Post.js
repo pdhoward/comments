@@ -1,14 +1,13 @@
-import React from 'react';
+import React, {Component}   from 'react';
+import PropTypes 					 	from 'prop-types';
 import PostContentContainer from './PostContentContainer';
 
-var PropTypes = React.PropTypes;
-
-var Post = React.createClass({
+class Post extends Component {
 	propTypes: {
 		title: PropTypes.string.isRequired,
 		content: PropTypes.string.isRequired,
 		handleSelection: PropTypes.func
-	},
+	}
 	render() {
 		return(
 			<div className="Post">
@@ -19,6 +18,6 @@ var Post = React.createClass({
 			</div>
 		);
 	}
-});
+};
 
 export default Post;

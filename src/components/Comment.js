@@ -1,20 +1,21 @@
-import React from 'react';
-import ReactHtmlParser from 'react-html-parser';
-import {Panel} from 'react-bootstrap';
+import React, {Component} 				from 'react';
+import PropTypes 									from 'prop-types';
+import ReactHtmlParser 						from 'react-html-parser';
+import {Panel} 										from 'react-bootstrap';
 import '../styles/Comment.css';
 
-var PropTypes = React.PropTypes;
 
-var Comment = React.createClass({
+class Comment extends Component {
 	propTypes: {
 		content: PropTypes.string.isRequired,
 		annotation: PropTypes.string,
 		domId: PropTypes.string,
 		handleAnnotationClick: PropTypes.func
-	},
-	handleAnnotationClick: function(){
+	}
+	handleAnnotationClick() {
 		this.props.handleAnnotationClick(this.props.domId);
-	},
+	}
+	
 	render() {
 		return(
 			<Panel className="Comment">
@@ -31,6 +32,6 @@ var Comment = React.createClass({
 			</Panel>
 		);
 	}
-});
+};
 
 export default Comment;

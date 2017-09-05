@@ -1,14 +1,17 @@
-import React from 'react';
-import FakeServer from '../FakeServer/FakeServer';
-import PostPreview from '../components/PostPreview';
-import PostPreviewContainer from '../components/PostPreviewContainer';
-import {Row, Col} from 'react-bootstrap';
 
-var Main = React.createClass({
-	getHomePage(){
+
+import React, {Component} 		from 'react';
+import FakeServer 						from '../FakeServer/FakeServer';
+import PostPreview 						from '../components/PostPreview';
+import PostPreviewContainer 	from '../components/PostPreviewContainer';
+import {Row, Col} 						from 'react-bootstrap';
+
+class Main extends Component {
+	getHomePage() {
 		var server = new FakeServer();
 		return server.getHomePageContent();
-	},
+	 }
+
 	render() {
 		return(
 			<Row>
@@ -26,6 +29,6 @@ var Main = React.createClass({
 			</Row>
 		);
 	}
-});
+};
 
 export default Main;

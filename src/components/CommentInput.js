@@ -1,35 +1,38 @@
-import React from 'react';
-import {Button, FormControl} from 'react-bootstrap';
-import FakeServer from '../FakeServer/FakeServer';
+
+import React, {Component} 				from 'react';
+import PropTypes 									from 'prop-types';
+import {Button, FormControl} 			from 'react-bootstrap';
+import FakeServer 								from '../FakeServer/FakeServer';
 import '../styles/CommentInput.css';
 
-var PropTypes = React.PropTypes;
-
-var CommentInput = React.createClass({
+class CommentInput extends Component {
 	propTypes: {
 		submitCallback: PropTypes.func.isRequired,
 		postId: PropTypes.string.isRequired
-	},
-	getInitialState(){
-		return {
-			value: ''
-		};
-	},
+	}
+
+	constructor() {
+		super()
+		 this.state = {
+				value: ''
+			}
+	}
+
 	getDefaultState(){
 		return {
 			value: ''
 		};
-	},
+	}
 	handleSubmit(event){
 		var server = new FakeServer();
 		server.addPostComment(this.props.postId, this.state.value);
 		this.props.submitCallback();
 		this.setState(this.getDefaultState());
 		event.preventDefault();
-	},
+	}
 	handleChange(event){
 		this.setState({value: event.target.value});
-	},
+	}
 	render() {
 		return(
 			<div className="CommentInput">
@@ -45,6 +48,6 @@ var CommentInput = React.createClass({
 			</div>
 		);
 	}
-});
+};
 
 export default CommentInput;

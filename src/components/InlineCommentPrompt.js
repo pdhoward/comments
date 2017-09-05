@@ -1,18 +1,19 @@
-import React from 'react';
-import {Button, Glyphicon} from 'react-bootstrap';
-import InlineCommentInputContainer from './InlineCommentInputContainer';
+import React, {Component}						from 'react';
+import PropTypes 										from 'prop-types';
+import {Button, Glyphicon} 					from 'react-bootstrap';
+import InlineCommentInputContainer 	from './InlineCommentInputContainer';
 import '../styles/InlineCommentPrompt.css';
 
-var PropTypes = React.PropTypes;
 
-var InlineCommentPrompt = React.createClass({
+class InlineCommentPrompt extends Component {
 	propTypes: {
 		x: PropTypes.number.isRequired,
 		y: PropTypes.number.isRequired,
 		domId: PropTypes.string,
 		submitHandlerCallback: PropTypes.func.isRequired,
 		cancelCallback: PropTypes.func.isRequired
-	},
+	}
+
 	getInitialState(){
 		return {
 			style:{
@@ -22,15 +23,18 @@ var InlineCommentPrompt = React.createClass({
 			},
 			prompt: true
 		};
-	},
+	}
+
 	handlePromptClick(){
 		this.setState({
 			prompt: false
 		});
-	},
+	}
+
 	storeCommentInputContainer(ref){
 		this.commentInputContainer = ref;
-	},
+	}
+
 	render() {
 		return(
 			<div className="InlineCommentPrompt" ref="child" style={this.state.style}>
@@ -50,6 +54,6 @@ var InlineCommentPrompt = React.createClass({
 			</div>
 		);
 	}
-});
+};
 
 export default InlineCommentPrompt;

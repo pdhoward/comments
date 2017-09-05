@@ -1,24 +1,30 @@
-import React from 'react';
-import {Row, Col} from 'react-bootstrap';
-import PostPreview from './PostPreview';
-import FakeServer from '../FakeServer/FakeServer';
+import React, {Component}					from 'react';
+import PropTypes 									from 'prop-types';
+import {Row, Col} 								from 'react-bootstrap';
+import PostPreview 								from './PostPreview';
+import FakeServer 								from '../FakeServer/FakeServer';
 import '../styles/PostRecommendations.css';
 
-var PropTypes = React.PropTypes;
-
-var PostRecommendations = React.createClass({
+class PostRecommendations  extends Component {
 	propTypes: {
 		recommendations: PropTypes.array.isRequired,
-	},
-	getInitialState(){
-		var server = new FakeServer();
-		var recommendations = this.props.recommendations.map(function(id){
-			return server.getPost(id);
-		});
-		return {
-			recommendations: recommendations
-		};
-	},
+	}
+
+		constructor() {
+			super()
+			 this.state = {
+				 	recommendations: []
+			 	}
+		}
+
+		componentDidMount () {
+			let server = new FakeServer();
+			let recommend = this.props.recommendations.map((id) => {
+				return server.getPost(id) })
+			this.setState( (recommend) => {
+				return {recommendations: recommend }
+					})
+			}
 
 	/*
 		Same story as in PostContainer.js. Props changed, but not state. Forcing re-render.
@@ -46,7 +52,7 @@ var PostRecommendations = React.createClass({
 				}
 			}
 		}
-	},
+	}
 	render() {
 		return(
 			<Row className='PostRecommendations'>
@@ -63,6 +69,6 @@ var PostRecommendations = React.createClass({
 			</Row>
 		);
 	}
-});
+};
 
 export default PostRecommendations;

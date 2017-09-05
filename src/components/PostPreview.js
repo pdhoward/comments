@@ -1,16 +1,16 @@
-import React from 'react';
-import {Link} from 'react-router';
+import React, {Component} 			from 'react';
+import PropTypes 								from 'prop-types';
+import {Link} 									from 'react-router';
+import {Panel} 									from 'react-bootstrap';
 import '../styles/PostPreview.css';
-import {Panel} from 'react-bootstrap';
 
-var PropTypes = React.PropTypes;
 
-var PostPreview = React.createClass({
+class PostPreview extends Component {
 	propTypes: {
 		title: PropTypes.string.isRequired,
 		previewText: PropTypes.string.isRequired,
 		id: PropTypes.number.isRequired
-	},
+	}
 
 	render() {
 		return(
@@ -22,6 +22,6 @@ var PostPreview = React.createClass({
 			</Link>
 		);
 	}
-});
+};
 
 export default PostPreview;

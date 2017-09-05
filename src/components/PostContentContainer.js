@@ -1,14 +1,14 @@
-import React from 'react';
-import ReactHtmlParser from 'react-html-parser';
+import React, {Component}									from 'react';
+import PropTypes 													from 'prop-types';
+import ReactHtmlParser 										from 'react-html-parser';
 import '../styles/PostContentContainer.css';
 
-var PropTypes = React.PropTypes;
 
-var PostContentContainer = React.createClass({
+class PostContentContainer extends Component {
 	propTypes: {
 		content: PropTypes.string.isRequired,
 		onMouseUp: PropTypes.func
-	},
+	}
 	render() {
 		return(
 			<div className="PostContentContainer">
@@ -16,6 +16,6 @@ var PostContentContainer = React.createClass({
 			</div>
 		);
 	}
-});
+};
 
 export default PostContentContainer;

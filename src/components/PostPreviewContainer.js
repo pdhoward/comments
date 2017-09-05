@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {Component}						from 'react';
 
-
-var PostPreviewContainer = React.createClass({
+class PostPreviewContainer extends Component {
 	render() {
 		return(
 			<div>
@@ -9,6 +8,6 @@ var PostPreviewContainer = React.createClass({
 			</div>
 		);
 	}
-});
+};
 
 export default PostPreviewContainer;

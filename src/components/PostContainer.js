@@ -1,43 +1,62 @@
-import React from 'react';
-import FakeServer from '../FakeServer/FakeServer';
-import Post from './Post';
-import CommentContainer from './CommentContainer';
-import InlineCommentPrompt from './InlineCommentPrompt';
-import PostRecommendations from './PostRecommendations';
+import React, {Component} 				from 'react';
+import PropTypes 									from 'prop-types';
+import FakeServer 								from '../FakeServer/FakeServer';
+import Post 											from './Post';
+import CommentContainer 					from './CommentContainer';
+import InlineCommentPrompt 				from './InlineCommentPrompt';
+import PostRecommendations 				from './PostRecommendations';
+import {Row, Col} 								from 'react-bootstrap';
 import '../styles/PostContainer.css';
-import {Row, Col} from 'react-bootstrap';
 
-var PropTypes = React.PropTypes;
+class PostContainer extends Component {
 
-var PostContainer = React.createClass({
+	constructor() {
+		super()
+		 this.state = {
+			 	id: '',
+ 				title: '',
+ 				content: '',
+ 				recommendations: [],
+				selectedText: ''
+		 	}
+		this.getPost = 					this.getPost.bind(this)
+		this.getChildContext = 	this.getChildContext.bind(this)
+		this.getPost = 					this.getPost.bind(this)
+		this.getSelection = 		this.getSelection.bind(this)
+	}
+
 	defaultProps: {
 		postContainerLeft: 0,
 		postContainerTop: 0
-	},
-	getInitialState(){
-		var id = this.props.params.id;
-		var post = this.getPost(id);
-		return {
-			id: id,
-			title: post.title,
-			content: post.content,
-			recommendations: post.recommendations
-		};
-	},
+	}
+
+	static childContextTypes = {
+		postId: PropTypes.string,
+		selectedText: PropTypes.string
+	}
+
+	componentDidMount () {
+		let id = this.props.params.id;
+		let post = this.getPost(id);
+		this.setState( (post) => {
+			return {id: id,
+							title: post.title,
+							content: post.content,
+							recommendations: post.recommendations }
+					})
+			}
+
 	getChildContext() {
 		return {
 			postId: this.props.params.id,
 			selectedText: this.state.selectedText
 		};
-	},
-	childContextTypes: {
-		postId: PropTypes.string,
-		selectedText: PropTypes.string
-	},
+	}
+
 	getPost(id){
 		var server = new FakeServer();
 		return server.getPost(id);
-	},
+	}
 
 	/*	getSelection needs to be passed all the way down to Post.js
 		why?	*/
@@ -45,7 +64,7 @@ var PostContainer = React.createClass({
 		var selection = window.getSelection();
 		var selectedText = selection.toString();
 		if(selectedText.length !== 0) {
-			//TODO: Be mroe defensive here. What if there is more than 1 range?
+			//TODO: Be more defensive here. What if there is more than 1 range?
 			//getClientRects is the de facto way to get position of a DOM node
 			var range = selection.getRangeAt(0);
 			var rect = range.getClientRects()[0];
@@ -66,7 +85,7 @@ var PostContainer = React.createClass({
 				showInlineComment: false,
 			});
 		}
-	},
+	}
 
 	/*
 		Should be problably using redux here instead of passing the
@@ -77,7 +96,7 @@ var PostContainer = React.createClass({
 		this.setState({
 			showInlineComment: false
 		});
-	},
+	}
 
 	/*If the inline comment input box is canceled, we should not even
 	show the inlineCommentPrompt anymore - i.e the small hovering prompt
@@ -86,13 +105,13 @@ var PostContainer = React.createClass({
 		this.setState({
 			showInlineComment: false
 		});
-	},
+	}
 	storeCommentComponent(ref){
 		this.commentContainer = ref;
-	},
+	}
 	storeInlineCommentPrompt(ref){
 		this.inlineCommentPrompt = ref;
-	},
+	}
 	/*
 		When displaying the inline comment prompt, it is positioned absolutely.
 		Hence we need the position of the post's container element
@@ -101,10 +120,11 @@ var PostContainer = React.createClass({
 	*/
 	storePostContainer(ref){
 		this.postContainer = ref;
-	},
+	}
 	storePostRecommendations(ref){
-		this.postRecommendations = ref;
-	},
+	//	this.postRecommendations = ref;
+		let postRecommendations = ref;
+	}
 
 	/*
 		Ok this is a mess. React was supposed to do this FOR me.
@@ -131,7 +151,8 @@ var PostContainer = React.createClass({
 				recommendations: post.recommendations
 			});
 		}
-	},
+	}
+
 	render() {
 		return(
 			<Row>
@@ -159,6 +180,6 @@ var PostContainer = React.createClass({
 			</Row>
 		);
 	}
-});
+};
 
 export default PostContainer;
