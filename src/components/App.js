@@ -17,7 +17,7 @@ class App extends Component {
           <Navbar />
           <div className="App_content">
 
-            <Route exact path="/" component={Main} />
+            <Route exact path="/" component={Main}/>
 
             <Route exact path="/posts/:id" component={PostContainer}/>
 

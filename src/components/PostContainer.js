@@ -43,7 +43,7 @@ class PostContainer extends Component {
 	}
 
 	componentDidMount () {
-		let id = this.props.params.id;
+		let id = this.props.match.params.id;
 		let post = this.getPost(id);
 		this.setState( ( ) => {
 			return {id: id,
@@ -55,7 +55,7 @@ class PostContainer extends Component {
 
 	getChildContext() {
 		return {
-			postId: this.props.params.id,
+			postId: this.props.match.params.id,
 			selectedText: this.state.selectedText
 		};
 	}
@@ -149,18 +149,18 @@ class PostContainer extends Component {
 		Hence I'm diffing the props myself and setting the state to force a re-render
 	*/
 	componentWillUpdate(nextProps, nextState){
-		if(this.props.params.id !== nextProps.params.id){
-			var post = this.getPost(nextProps.params.id);
+		if(this.props.match.params.id !== nextProps.match.params.id){
+			var post = this.getPost(nextProps.match.params.id);
 			if (post) {
 			this.setState({
-				id: nextProps.params.id,
+				id: nextProps.match.params.id,
 				title: post.title,
 				content: post.content,
 				recommendations: post.recommendations
 					});
 		} else {
 			this.setState({
-				id: nextProps.params.id,
+				id: nextProps.match.params.id,
 				title: "Hello from Post Container",
 				content: "Nothing to Report here today",
 				recommendations: []
@@ -188,7 +188,7 @@ class PostContainer extends Component {
 							/>
 						}
 						<PostRecommendations ref={this.storePostRecommendations} recommendations={this.state.recommendations} />
-						<CommentContainer ref={this.storeCommentComponent} postId={this.props.params.id.toString()} />
+						<CommentContainer ref={this.storeCommentComponent} postId={this.props.match.params.id.toString()} />
 					</div>
 				</Col>
 				<Col xs={0} sm={1} md={3} />
