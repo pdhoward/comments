@@ -17,6 +17,9 @@ class CommentContainer extends Component {
 		 this.state = {
 			 	comments: []
 		 	}
+			this.getPostComments = 					this.getPostComments.bind(this)
+			this.refreshComments = 					this.refreshComments.bind(this)
+			this.handleAnnotationClick = 		this.handleAnnotationClick.bind(this)
 		}
 
 	componentWillMount(){
@@ -29,7 +32,7 @@ class CommentContainer extends Component {
 		var server = new FakeServer();
 		return server.getPostComments(postId);
 	}
-	refreshCommennts() {
+	refreshComments() {
 		var server = new FakeServer();
 		var comments = server.getPostComments(this.props.postId);
 		this.setState({

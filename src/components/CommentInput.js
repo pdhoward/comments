@@ -16,6 +16,8 @@ class CommentInput extends Component {
 		 this.state = {
 				value: ''
 			}
+		this.handleSubmit = 					this.handleSubmit.bind(this)
+		this.handleChange = 					this.handleChange.bind(this)	
 	}
 
 	getDefaultState(){

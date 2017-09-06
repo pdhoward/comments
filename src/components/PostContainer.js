@@ -151,14 +151,22 @@ class PostContainer extends Component {
 	componentWillUpdate(nextProps, nextState){
 		if(this.props.params.id !== nextProps.params.id){
 			var post = this.getPost(nextProps.params.id);
+			if (post) {
 			this.setState({
 				id: nextProps.params.id,
 				title: post.title,
 				content: post.content,
 				recommendations: post.recommendations
+					});
+		} else {
+			this.setState({
+				id: nextProps.params.id,
+				title: "Hello from Post Container",
+				content: "Nothing to Report here today",
+				recommendations: []
 			});
 		}
-	}
+		}}
 
 	render() {
 		return(

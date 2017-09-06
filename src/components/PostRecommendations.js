@@ -58,10 +58,10 @@ class PostRecommendations  extends Component {
 			<Row className='PostRecommendations'>
 				<Col xs={12}>
 					<h2 className='recommendations-title'>More</h2>
-					{this.state.recommendations.map(function(post){
+					{this.state.recommendations.map((post) => {
 						return(
 						<Col key={post.id} xs={12} sm={12} md={4} className='no-padding'>
-							<PostPreview id={post.id} title={post.title} previewText={post.preview} />
+							<PostPreview key={post.id} id={post.id} title={post.title} previewText={post.preview} />
 						</Col>
 						);
 					})}
