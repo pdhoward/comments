@@ -1,7 +1,9 @@
 
 
 import React, {Component}         from 'react';
-import { BrowserRouter }          from 'react-router-dom';
+import { Route }           				from 'react-router-dom';
+import Main 								 			from './Main';
+import PostContainer   		 			  from './PostContainer';
 import Navbar                     from './common/Navbar'
 import Footer                     from './common/Footer'
 import Fork                       from './common/Fork'
@@ -10,18 +12,20 @@ import '../styles/App.css';
 class App extends Component {
   render() {
     return(
-  <BrowserRouter>
       <div className="App">
         <div className="App__wrap">
           <Navbar />
           <div className="App_content">
-            {this.props.children}
+
+            <Route exact path="/" component={Main} />
+
+            <Route exact path="/posts/:id" component={PostContainer}/>
+
           </div>
           <Footer />
           <Fork />
         </div>
       </div>
-    </BrowserRouter>
     );
   }
 };
