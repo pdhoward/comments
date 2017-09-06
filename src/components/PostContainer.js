@@ -42,7 +42,7 @@ class PostContainer extends Component {
 		selectedText: PropTypes.string
 	}
 
-	componentDidMount () {
+	componentWillMount () {
 		let id = this.props.match.params.id;
 		let post = this.getPost(id);
 		this.setState( ( ) => {
@@ -61,8 +61,8 @@ class PostContainer extends Component {
 	}
 
 	getPost(id){
-		var server = new FakeServer();
-		return server.getPost(id);
+		var server = new FakeServer();		
+		return server.getPost(id)
 	}
 
 	/*	getSelection needs to be passed all the way down to Post.js

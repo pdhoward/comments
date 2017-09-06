@@ -23,7 +23,7 @@ class PostRecommendations  extends Component {
 				return server.getPost(id) })
 			this.setState( () => {
 				return {recommendations: recommend }
-					})
+					})			
 			}
 
 	/*
@@ -61,7 +61,7 @@ class PostRecommendations  extends Component {
 					{this.state.recommendations.map((post) => {
 						return(
 						<Col key={post.id} xs={12} sm={12} md={4} className='no-padding'>
-							<PostPreview key={post.id} id={post.id} title={post.title} previewText={post.preview} />
+							<PostPreview id={post.id} title={post.title} previewText={post.preview} />
 						</Col>
 						);
 					})}

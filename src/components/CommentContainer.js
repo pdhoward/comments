@@ -22,7 +22,9 @@ class CommentContainer extends Component {
 			this.handleAnnotationClick = 		this.handleAnnotationClick.bind(this)
 		}
 
-	componentWillMount(){
+	componentDidMount(){
+		console.log("COMMENT CONTAINER MOUNTED")
+		console.log(this.props)
 		var comments = this.getPostComments(this.props.postId);
 		this.setState({
 			comments: comments

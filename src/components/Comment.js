@@ -12,10 +12,17 @@ class Comment extends Component {
 		domId: PropTypes.string,
 		handleAnnotationClick: PropTypes.func
 	}
+	componentDidMount(){
+		console.log("MOUNTED COMMENTS")
+		console.log(this.props)
+	}
+
 	handleAnnotationClick() {
+		console.log("DEBUG COMMENTS")
+		console.log(this.props)
 		this.props.handleAnnotationClick(this.props.domId);
 	}
-	
+
 	render() {
 		return(
 			<Panel className="Comment">
