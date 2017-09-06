@@ -16,11 +16,14 @@ class InlineCommentInputContainer extends Component {
 		postId: PropTypes.string,
 		selectedText: PropTypes.string
 	}
-	getInitialState(){
-		return {
-			value: ''
-		};
+	constructor() {
+		super()
+		 this.state = {
+			 	value: ''
+		 	}
+
 	}
+
 	getDefaultState(){
 		return {
 			value: ''

@@ -14,16 +14,34 @@ class InlineCommentPrompt extends Component {
 		cancelCallback: PropTypes.func.isRequired
 	}
 
-	getInitialState(){
-		return {
-			style:{
-				position: 'absolute',
-				left: this.props.x,
-				top: this.props.y,
-			},
-			prompt: true
-		};
+	constructor() {
+		super()
+		 this.state = {
+			 style:{
+				 position: 'absolute',
+				 left: this.props.x,
+				 top: this.props.y,
+			 },
+			 prompt: true
+		 };
+
 	}
+
+
+	componentDidMount () {
+		let left = this.props.x;
+		let top = this.props.y;
+		let prompt = true;
+		let position = 'absolute';
+		this.setState( () => {
+			return {style:{
+									position: position,
+									left: left,
+									top: top,
+								},
+							prompt: prompt }
+					})
+			}
 
 	handlePromptClick(){
 		this.setState({

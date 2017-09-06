@@ -23,6 +23,13 @@ class PostContainer extends Component {
 		this.getChildContext = 	this.getChildContext.bind(this)
 		this.getPost = 					this.getPost.bind(this)
 		this.getSelection = 		this.getSelection.bind(this)
+		this.storePostRecommendations = this.storePostRecommendations.bind(this)
+		this.inlineCommentSubmitHandler = this.inlineCommentSubmitHandler.bind(this)
+		this.inlineCommentCancel = this.inlineCommentCancel.bind(this)
+		this.storeCommentComponent = this.storeCommentComponent.bind(this)
+		this.storeInlineCommentPrompt= this.storeInlineCommentPrompt.bind(this)
+		this.storePostContainer = this.storePostContainer.bind(this)
+
 	}
 
 	defaultProps: {
@@ -38,7 +45,7 @@ class PostContainer extends Component {
 	componentDidMount () {
 		let id = this.props.params.id;
 		let post = this.getPost(id);
-		this.setState( (post) => {
+		this.setState( ( ) => {
 			return {id: id,
 							title: post.title,
 							content: post.content,
@@ -122,8 +129,8 @@ class PostContainer extends Component {
 		this.postContainer = ref;
 	}
 	storePostRecommendations(ref){
-	//	this.postRecommendations = ref;
-		let postRecommendations = ref;
+ 		this.postRecommendations = ref;
+		//let postRecommendations = ref;
 	}
 
 	/*

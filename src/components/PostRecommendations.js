@@ -21,7 +21,7 @@ class PostRecommendations  extends Component {
 			let server = new FakeServer();
 			let recommend = this.props.recommendations.map((id) => {
 				return server.getPost(id) })
-			this.setState( (recommend) => {
+			this.setState( () => {
 				return {recommendations: recommend }
 					})
 			}
