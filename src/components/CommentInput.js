@@ -1,7 +1,9 @@
 
 import React, {Component} 				from 'react';
 import PropTypes 									from 'prop-types';
-import {Button, FormControl} 			from 'react-bootstrap';
+import {Button, FormControl,
+				FormGroup, ControlLabel,
+				HelpBlock} 								from 'react-bootstrap';
 import FakeServer 								from '../FakeServer/FakeServer';
 import '../styles/CommentInput.css';
 
@@ -17,7 +19,8 @@ class CommentInput extends Component {
 				value: ''
 			}
 		this.handleSubmit = 					this.handleSubmit.bind(this)
-		this.handleChange = 					this.handleChange.bind(this)	
+		this.handleChange = 					this.handleChange.bind(this)
+		this.getValidationState =   	this.getValidationState.bind(this)
 	}
 
 	getDefaultState(){
@@ -32,24 +35,41 @@ class CommentInput extends Component {
 		this.setState(this.getDefaultState());
 		event.preventDefault();
 	}
-	handleChange(event){
-		this.setState({value: event.target.value});
-	}
-	render() {
-		return(
-			<div className="CommentInput">
-				<form onSubmit={this.handleSubmit}>
-					<FormControl
-						componentClass="textarea"
-						onChange={this.handleChange}
-						placeholder="Let us know what you think"
-						value={this.state.value}
-					/>
-					<Button bsSize='sm' type='submit' bsStyle='primary'>Submit</Button>
-				</form>
-			</div>
-		);
-	}
+
+	getValidationState() {
+	 const length = this.state.value.length;
+	 if (length > 10) return 'success';
+	 else if (length > 5) return 'warning';
+	 else if (length > 0) return 'error';
+ }
+
+ handleChange(e) {
+	 this.setState({ value: e.target.value });
+ }
+
+ render() {
+		 return (
+		 <div className="CommentInput">
+			 <form onSubmit={this.handleSubmit}>
+				 <FormGroup
+					 controlId="formBasicText"
+					 validationState={this.getValidationState()}
+				 >
+					 <ControlLabel>Working example with validation</ControlLabel>
+					 <FormControl
+						 type="text"
+						 value={this.state.value}
+						 placeholder="Enter text"
+						 onChange={this.handleChange}
+					 />
+					 <FormControl.Feedback />
+					 <HelpBlock>Validation is based on string length.</HelpBlock>
+				 </FormGroup>
+				 <Button bsSize='sm' type='submit' bsStyle='primary'>Submit</Button>
+			 </form>
+			 </div>
+		 );
+	 }
 };
 
 export default CommentInput;

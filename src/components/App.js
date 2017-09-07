@@ -2,12 +2,15 @@
 
 import React, {Component}         from 'react';
 import { Route }           				from 'react-router-dom';
+import { initializeAPI }          from '../api';
 import Main 								 			from './Main';
 import PostContainer   		 			  from './PostContainer';
 import Navbar                     from './common/Navbar'
 import Footer                     from './common/Footer'
 import Fork                       from './common/Fork'
 import '../styles/App.css';
+
+initializeAPI()
 
 class App extends Component {
   render() {
