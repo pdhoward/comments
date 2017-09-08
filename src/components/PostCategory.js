@@ -5,7 +5,7 @@ import {Panel} 									from 'react-bootstrap';
 import '../styles/PostMain.css';
 
 
-class PostMain extends Component {
+class PostCategory extends Component {
 	propTypes: {
 		title: PropTypes.string.isRequired,
 		author: PropTypes.string.isRequired,
@@ -30,4 +30,4 @@ class PostMain extends Component {
 	}
 };
 
-export default PostMain;
+export default PostCategory;

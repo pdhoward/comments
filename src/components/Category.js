@@ -2,33 +2,34 @@
 
 import React, {Component} 		from 'react';
 import API										from '../api'
-import PostMain 							from '../components/PostMain';
-import PostMainContainer 			from '../components/PostMainContainer';
+import PostCategory						from '../components/PostCategory';
+import PostCategoryContainer	from '../components/PostCategoryContainer';
 import {Row, Col} 						from 'react-bootstrap';
 
-class Main extends Component {
+class Category extends Component {
 
 	constructor() {
 		super()
 		this.state = {
 			posts: []
 		}
-		this.getHomePage =    this.getHomePage.bind(this)
+		this.getCategoryPosts =    this.getCategoryPosts.bind(this)
 	}
 
-	getHomePage() {
+	getCategoryPosts() {
 		API.getAllPosts().then((posts) => {
-			this.setState({posts: posts})
+			let selectedCategory = posts.filter((post) => {if (post.category === this.props.match.category) return post})
+			this.setState({posts: selectedCategory})
 		})
 
 	 }
 	componentWillMount () {
-	 	this.getHomePage()
+	 	this.getCategoryPosts()
 	 	}
 
 	renderPosts = () => {
 		return this.state.posts.map(post => (
-			<PostMain key={post.id} id={post.id} title={post.title}
+			<PostCategory key={post.id} id={post.id} title={post.title}
 				        author={post.author} votescore={post.voteScore} category={post.category}
 								deleted={post.deleted} timestamp={post.timestamp} />
 	))
@@ -40,9 +41,9 @@ class Main extends Component {
 				<Col xs={0} sm={1} md={3} />
 				<Col xs={12} sm={10} md={6}>
 					<div className="Main">
-						<PostMainContainer>
+						<PostCategoryContainer>
 							{this.renderPosts()}
-						</PostMainContainer>
+						</PostCategoryContainer>
 					</div>
 				</Col>
 				<Col xs={0} sm={1} md={3} />
@@ -51,4 +52,4 @@ class Main extends Component {
 	}
 };
 
-export default Main;
+export default Category;
