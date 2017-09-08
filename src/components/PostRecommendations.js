@@ -1,7 +1,7 @@
 import React, {Component}					from 'react';
 import PropTypes 									from 'prop-types';
 import {Row, Col} 								from 'react-bootstrap';
-import PostPreview 								from './PostPreview';
+import PostMain   								from './PostMain';
 import FakeServer 								from '../FakeServer/FakeServer';
 import '../styles/PostRecommendations.css';
 
@@ -61,7 +61,7 @@ class PostRecommendations  extends Component {
 					{this.state.recommendations.map((post) => {
 						return(
 						<Col key={post.id} xs={12} sm={12} md={4} className='no-padding'>
-							<PostPreview id={post.id} title={post.title} previewText={post.preview} />
+							<PostMain id={post.id} title={post.title} previewText={post.preview} />
 						</Col>
 						);
 					})}

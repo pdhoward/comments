@@ -1,5 +1,6 @@
 import React, {Component} 				from 'react';
 import PropTypes 									from 'prop-types';
+import API												from '../api'
 import FakeServer 								from '../FakeServer/FakeServer';
 import Post 											from './Post';
 import CommentContainer 					from './CommentContainer';
@@ -42,27 +43,17 @@ class PostContainer extends Component {
 		selectedText: PropTypes.string
 	}
 
-	componentWillMount () {
-		let id = this.props.match.params.id;
-		let post = this.getPost(id);
-		this.setState( ( ) => {
-			return {id: id,
-							title: post.title,
-							content: post.content,
-							recommendations: post.recommendations }
-					})
-			}
+	getPost() {
+		API.getAllPosts().then((posts) => {
+			this.setState({posts: posts})
+		})
+	}
 
 	getChildContext() {
 		return {
 			postId: this.props.match.params.id,
 			selectedText: this.state.selectedText
 		};
-	}
-
-	getPost(id){
-		var server = new FakeServer();		
-		return server.getPost(id)
 	}
 
 	/*	getSelection needs to be passed all the way down to Post.js
@@ -119,12 +110,7 @@ class PostContainer extends Component {
 	storeInlineCommentPrompt(ref){
 		this.inlineCommentPrompt = ref;
 	}
-	/*
-		When displaying the inline comment prompt, it is positioned absolutely.
-		Hence we need the position of the post's container element
-		so that the comment prompt can be placed at the end of the user's
-		selection box correctly. Refer to this.getSelection()
-	*/
+
 	storePostContainer(ref){
 		this.postContainer = ref;
 	}
@@ -133,21 +119,17 @@ class PostContainer extends Component {
 		//let postRecommendations = ref;
 	}
 
-	/*
-		Ok this is a mess. React was supposed to do this FOR me.
-		Why?
-		There was a bug. 'Recommendations' that are displayed below a post have <Link> in them.
+	componentWillMount () {
+		let id = this.props.match.params.id;
+		API.getPost(id).then((post) => {
+			this.setState(
+						{ id: id,
+							title: post.title,
+							content: post.body,
+							recommendations: [1, 2, 3] } )
+					})
+			}
 
-		Expectation - user clicks on them, route changes, props to <PostContainer> changes, <PostContainer> re-renders.
-		Reality - route changed, the props to <PostContainer /> changed, but it did not re-render!
-
-		You might argue that rendering occurs only on setState(). There's a problem here. My state changes when I call
-		getPost() in getInitialState() with the post id that is passed in as a prompt. But getInitialState() gets called
-		only once in a lifecycle. ComponentDidMount/ComponentWillMount won't get called here either. So how do I change state
-		if my (fake) server call does not even get triggered?
-
-		Hence I'm diffing the props myself and setting the state to force a re-render
-	*/
 	componentWillUpdate(nextProps, nextState){
 		if(this.props.match.params.id !== nextProps.match.params.id){
 			var post = this.getPost(nextProps.match.params.id);
@@ -158,7 +140,7 @@ class PostContainer extends Component {
 				content: post.content,
 				recommendations: post.recommendations
 					});
-		} else {
+				} else {
 			this.setState({
 				id: nextProps.match.params.id,
 				title: "Hello from Post Container",
