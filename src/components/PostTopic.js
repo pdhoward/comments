@@ -5,7 +5,7 @@ import {Panel} 									from 'react-bootstrap';
 import '../styles/PostMain.css';
 
 
-class PostCategory extends Component {
+class PostTopic extends Component {
 	propTypes: {
 		title: PropTypes.string.isRequired,
 		author: PropTypes.string.isRequired,
@@ -19,7 +19,7 @@ class PostCategory extends Component {
 	render() {
 		let title = this.props.category
 		return(
-			<Link className='title' to={'/topic/' + this.props.id}>
+			<Link className='title' to={'/post/' + this.props.id}>
 				<Panel className="PostPreview" header={title}>
 					<h3>{this.props.title}</h3>
 					<section>{this.props.author}</section>
@@ -30,4 +30,4 @@ class PostCategory extends Component {
 	}
 };
 
-export default PostCategory;
+export default PostTopic;
