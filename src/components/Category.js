@@ -18,7 +18,10 @@ class Category extends Component {
 
 	getCategoryPosts() {
 		API.getAllPosts().then((posts) => {
-			let selectedCategory = posts.filter((post) => {if (post.category === this.props.match.category) return post})
+			let selectedCategory = posts.filter((post) => {if (post.category === this.props.match.params.category) return post})
+			console.log(selectedCategory)
+			console.log(this.props.match.params.category)
+			console.log(this.props)
 			this.setState({posts: selectedCategory})
 		})
 

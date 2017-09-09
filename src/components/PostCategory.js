@@ -19,7 +19,7 @@ class PostCategory extends Component {
 	render() {
 		let title = this.props.category
 		return(
-			<Link className='title' to={'/category/' + this.props.category}>
+			<Link className='title' to={'/post/' + this.props.id}>
 				<Panel className="PostPreview" header={title}>
 					<h3>{this.props.title}</h3>
 					<section>{this.props.author}</section>
