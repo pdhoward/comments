@@ -18,21 +18,20 @@ class Topic extends Component {
 
 	getTopicPosts() {
 		API.getAllPosts().then((posts) => {
-			let selectedCategory = posts.filter((post) => {if (post.category === this.props.match.params.category) return post})
-			console.log(selectedCategory)
-			console.log(this.props.match.params.category)
+			let selectedPosts = posts.filter((post) => {if (post.id === this.props.match.params.id) return post})
+			console.log(selectedPosts)
 			console.log(this.props)
-			this.setState({posts: selectedCategory})
+			this.setState({posts: selectedPosts})
 		})
 
 	 }
 	componentWillMount () {
-	 	this.getCategoryPosts()
+	 	this.getTopicPosts()
 	 	}
 
 	renderPosts = () => {
 		return this.state.posts.map(post => (
-			<PostCategory key={post.id} id={post.id} title={post.title}
+			<PostTopic key={post.id} id={post.id} title={post.title}
 				        author={post.author} votescore={post.voteScore} category={post.category}
 								deleted={post.deleted} timestamp={post.timestamp} />
 	))
@@ -44,9 +43,9 @@ class Topic extends Component {
 				<Col xs={0} sm={1} md={3} />
 				<Col xs={12} sm={10} md={6}>
 					<div className="Main">
-						<PostCategoryContainer>
+						<PostTopicContainer>
 							{this.renderPosts()}
-						</PostCategoryContainer>
+						</PostTopicContainer>
 					</div>
 				</Col>
 				<Col xs={0} sm={1} md={3} />
