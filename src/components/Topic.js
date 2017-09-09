@@ -11,17 +11,24 @@ class Topic extends Component {
 	constructor() {
 		super()
 		this.state = {
-			posts: []
+			posts: [],
+			comments: []
 		}
 		this.getTopicPosts =    this.getTopicPosts.bind(this)
 	}
 
+//API.getCommentsForPost = (postId)
 	getTopicPosts() {
+		API.getCommentsForPost(this.props.match.params.id).then((comments) => {
+			console.log("GET COMMENTS")
+			console.log(comments)
+		})
 		API.getAllPosts().then((posts) => {
-			let selectedPosts = posts.filter((post) => {if (post.id === this.props.match.params.id) return post})
-			console.log(selectedPosts)
+			let selectedPost = posts.filter((post) => {if (post.id === this.props.match.params.id) return post})
+			console.log("GET TOPIC")
+			console.log(selectedPost)
 			console.log(this.props)
-			this.setState({posts: selectedPosts})
+			this.setState({posts: selectedPost})
 		})
 
 	 }
