@@ -5,7 +5,7 @@ import {Panel} 									from 'react-bootstrap';
 import '../styles/PostMain.css';
 
 
-class PostTopic extends Component {
+class PostTopicComments extends Component {
 	propTypes: {
 		body: PropTypes.string.isRequired,
 		author: PropTypes.string.isRequired,
@@ -18,7 +18,7 @@ class PostTopic extends Component {
 	}
 
 	render() {
-		
+
 		return(
 				<Panel className="PostPreview" >
 					<section>{this.props.body}</section>
@@ -30,4 +30,4 @@ class PostTopic extends Component {
 	}
 };
 
-export default PostTopic;
+export default PostTopicComments;

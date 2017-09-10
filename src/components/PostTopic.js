@@ -18,9 +18,10 @@ class PostTopic extends Component {
 
 	render() {
 		let title = this.props.category
-		return(			
+		return(
 				<Panel className="PostPreview" header={title}>
 					<h3>{this.props.title}</h3>
+					<section>{this.props.body}</section>
 					<section>{this.props.author}</section>
 					<section>{this.props.votescore}</section>
 				</Panel>
