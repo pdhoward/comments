@@ -9,23 +9,11 @@ const Navbar = () => (
       </div>
       <ul className="nav navbar-nav">
         <li >
-          <Link to="/">New Post</Link>
+          <Link to="/categories">Categories</Link>
         </li>
         <li >
-          <Link to="/search">Sort</Link>
-        </li>
-        <li >
-          <Link to='/'>Home</Link>
-        </li>
-        <li >
-          <Link to='/editors'>Editor's pick</Link>
-        </li>
-        <li >
-          <Link to='/news'>News</Link>
-        </li>
-        <li>
-          <Link to='/technology'>Technology</Link>
-        </li>
+          <Link to="/sort">Sort</Link>
+        </li>        
       </ul>
     </div>
   </nav>
