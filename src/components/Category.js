@@ -2,8 +2,8 @@
 
 import React, {Component} 		from 'react';
 import API										from '../api'
-import PostCategory						from '../components/PostCategory';
-import PostCategoryContainer	from '../components/PostCategoryContainer';
+import PostCategory						from './PostCategory';
+import PostCategoryContainer	from './PostCategoryContainer';
 import {Row, Col} 						from 'react-bootstrap';
 
 class Category extends Component {
@@ -19,9 +19,6 @@ class Category extends Component {
 	getCategoryPosts() {
 		API.getAllPosts().then((posts) => {
 			let selectedCategory = posts.filter((post) => {if (post.category === this.props.match.params.category) return post})
-			console.log(selectedCategory)
-			console.log(this.props.match.params.category)
-			console.log(this.props)
 			this.setState({posts: selectedCategory})
 		})
 
@@ -35,8 +32,8 @@ class Category extends Component {
 			<PostCategory key={post.id} id={post.id} title={post.title}
 				        author={post.author} votescore={post.voteScore} category={post.category}
 								deleted={post.deleted} timestamp={post.timestamp} />
-	))
-}
+			))
+		}
 
 	render() {
 		return(

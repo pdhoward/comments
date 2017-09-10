@@ -18,7 +18,6 @@ class Topic extends Component {
 		this.getTopicPosts =    this.getTopicPosts.bind(this)
 	}
 
-//API.getCommentsForPost = (postId)
 	getTopicPosts(cb) {
 		let stateObj = {}
 
