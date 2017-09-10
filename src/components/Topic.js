@@ -2,8 +2,9 @@
 
 import React, {Component} 		from 'react';
 import API										from '../api'
-import PostTopic  						from '../components/PostTopic';
-import PostTopicContainer   	from '../components/PostTopicContainer';
+import PostTopic  						from './PostTopic';
+import PostTopicContainer   	from './PostTopicContainer';
+import PostTopicContainer   	from './PostTopicComments';
 import {Row, Col} 						from 'react-bootstrap';
 
 class Topic extends Component {
@@ -20,14 +21,10 @@ class Topic extends Component {
 //API.getCommentsForPost = (postId)
 	getTopicPosts() {
 		API.getCommentsForPost(this.props.match.params.id).then((comments) => {
-			console.log("GET COMMENTS")
-			console.log(comments)
+			this.setState({comments: comments})
 		})
 		API.getAllPosts().then((posts) => {
 			let selectedPost = posts.filter((post) => {if (post.id === this.props.match.params.id) return post})
-			console.log("GET TOPIC")
-			console.log(selectedPost)
-			console.log(this.props)
 			this.setState({posts: selectedPost})
 		})
 
@@ -42,6 +39,13 @@ class Topic extends Component {
 				        author={post.author} votescore={post.voteScore} category={post.category}
 								deleted={post.deleted} timestamp={post.timestamp} />
 	))
+
+	renderComments = () => {
+		return this.state.comments.map(comment => (
+			<PostTopicComments key={comment.id} id={comment.id} title={comment.body}
+				        author={comment.author} votescore={comment.voteScore} parentID={comment.parentID}
+								deleted={comment.deleted} parentDeleted={comment.parentDeleted}timestamp={comment.timestamp} />
+	))
 }
 
 	render() {
@@ -52,6 +56,7 @@ class Topic extends Component {
 					<div className="Main">
 						<PostTopicContainer>
 							{this.renderPosts()}
+							{this.renderComments()}
 						</PostTopicContainer>
 					</div>
 				</Col>
