@@ -18,14 +18,13 @@ class PostTopic extends Component {
 
 	render() {
 		let title = this.props.category
-		return(
-			<Link className='title' to={'/post/' + this.props.id}>
+		return(			
 				<Panel className="PostPreview" header={title}>
 					<h3>{this.props.title}</h3>
 					<section>{this.props.author}</section>
 					<section>{this.props.votescore}</section>
 				</Panel>
-			</Link>
+
 		);
 	}
 };
