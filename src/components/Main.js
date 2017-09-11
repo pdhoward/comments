@@ -4,7 +4,7 @@ import React, {Component} 		from 'react';
 import API										from '../api'
 import PostMain 							from './PostMain';
 import PostMainContainer 			from './PostMainContainer';
-import {Row, Col} 						from 'react-bootstrap';
+import {Row, Col, Button} 		from 'react-bootstrap';
 
 class Main extends Component {
 
@@ -40,9 +40,13 @@ class Main extends Component {
 				<Col xs={0} sm={1} md={3} />
 				<Col xs={12} sm={10} md={6}>
 					<div className="Main">
+
 						<PostMainContainer>
 							{this.renderPosts()}
 						</PostMainContainer>
+
+						<Button href="/newpost" bsStyle="primary">New Post</Button>
+
 					</div>
 				</Col>
 				<Col xs={0} sm={1} md={3} />

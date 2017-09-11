@@ -6,6 +6,7 @@ import { initializeAPI }          from '../api';
 import Main 								 			from './Main';
 import Category 									from './Category';
 import Topic           		 			  from './Topic';
+import NewPost         		 			  from './NewPost';
 import Navbar                     from './common/Navbar'
 import Footer                     from './common/Footer'
 import Fork                       from './common/Fork'
@@ -23,6 +24,7 @@ class App extends Component {
             <Route exact path="/" component={Main}/>
             <Route exact path="/category/:category" component={Category}/>
             <Route exact path="/topic/:id" component={Topic}/>
+            <Route exact path="/newpost" component={NewPost}/>
           </div>
           <Footer />
           <Fork />

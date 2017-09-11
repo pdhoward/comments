@@ -47,10 +47,15 @@ class Navbar extends Component {
 
   render() {
     return(
-      <Nav bsStyle="tabs" activeKey="1" onSelect={this.handleSelect}>
-        <NavItem eventKey="1" href="/">Home</NavItem>
-        <NavDropdown title="All Categories" id="nav-dropdown">
+      <Nav bsStyle="tabs" activeKey="1" >
+        <NavItem href="/">Home</NavItem>
+        <NavDropdown title="Select Categories" id="nav-dropdown">
           {this.renderCategoryMenu()}
+        </NavDropdown>
+        <NavDropdown title="Select Sort" id="nav-dropdown">
+          <MenuItem eventKey="4.1">By Vote Score</MenuItem>
+          <MenuItem divider />
+          <MenuItem eventKey="4.2">By Time</MenuItem>
         </NavDropdown>
       </Nav>
       )
@@ -58,28 +63,3 @@ class Navbar extends Component {
   }
 
 export default Navbar;
-
-/*
-
-
-////////////////
-const Navbar = () => (
-  <nav style={{ marginBottom: 0 }} className="navbar navbar-inverse">
-    <div className="container-fluid">
-      <div className="navbar-header">
-        <Link className="navbar-brand" to="/">Comments</Link>
-      </div>
-      <ul className="nav navbar-nav">
-        <li >
-          <Link to="/categories">Categories</Link>
-        </li>
-        <li >
-          <Link to="/sort">Sort</Link>
-        </li>
-      </ul>
-    </div>
-  </nav>
-);
-
-export default Navbar;
-*/
