@@ -46,7 +46,7 @@ class Main extends Component {
 							{this.renderPosts()}
 						</PostMainContainer>
 
-					<Link className='newpost' to={'/newpost' + this.getHomePage}>
+					<Link className='newpost' to={'/newpost/' + this.getHomePage}>
 						<Button bsStyle="primary">New Post</Button>
 					</Link>
 

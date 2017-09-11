@@ -34,17 +34,6 @@ class NewPost extends Component {
 		this.getValidationState =   	this.getValidationState.bind(this)
 	}
 
-	/*
-	API.createNewPost = (postData) => {
-    const post = {
-      id: uuid(),
-      timestamp: Date.now(),
-      title: postData.title,
-      body: postData.body,
-      author: postData.author,
-      category: postData.category
-    };
-	*/
 
 	handleSubmit(event){
 		API.createNewPost(this.state).then((response) => {
@@ -53,8 +42,6 @@ class NewPost extends Component {
 		})
 		console.log("debugging more new post")
 		console.log(this.props)
-		
-		this.props.match.getHomePage()
 		event.preventDefault();
 	}
 

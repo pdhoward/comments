@@ -15,6 +15,14 @@ import '../styles/App.css';
 initializeAPI()
 
 class App extends Component {
+  state = {
+    posts:[]
+  }
+
+  handleSubmitForm = () => {
+    console.log("SUBMITTED FORM")
+  }
+
   render() {
     return(
       <div className="App">
@@ -24,7 +32,9 @@ class App extends Component {
             <Route exact path="/" component={Main}/>
             <Route exact path="/category/:category" component={Category}/>
             <Route exact path="/topic/:id" component={Topic}/>
-            <Route exact path="/newpost/:cb" component={NewPost}/>       
+            <Route path="/newpost" render={({history}) => (
+              <NewPost onSubmitPost={ ( ) => { this.handleSubmitForm() history.push('/') }}/>
+
           </div>
           <Footer />
           <Fork />
