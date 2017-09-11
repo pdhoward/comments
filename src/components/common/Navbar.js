@@ -12,43 +12,44 @@ class Navbar extends Component {
 			categories: []
 		}
     this.renderCategoryMenu =    this.renderCategoryMenu.bind(this)
+    this.getCategories =         this.getCategories.bind(this)
 	}
 
-  handleSelect(eventKey) {
-    console.log(eventKey)
-  }
-
-
-  componentWillMount () {
+  getCategories = (cb) => {
+    //let catarray = []
     API.getAllCategories().then(function(categories) {
-      console.log("debug mount")
-      console.log(Array.isArray(categories.categories))
-      console.log(categories.length)
-      console.log(categories)
-      let categoryNames = categories.categories.map(function(category) {
+      let catarray = categories.categories.map((category) => {
         return category.name
       })
       console.log("debug MENU")
-      console.log(categoryNames)
-      this.setState({categories: categoryNames})
-    })
-	 	}
+      console.log(catarray)
+      return cb(catarray)
 
-	renderCategoryMenu = () => {
+    })
+  }
+
+  renderCategoryMenu = () => {
     console.log("debug RENDER MENU")
     console.log(this.state)
 		return this.state.categories.map(category => (
-			<MenuItem eventKey="4.1">{category}</MenuItem>
+			<MenuItem href={'/category/' + category} eventKey="4.1">{category}</MenuItem>
 	   ))
    }
+
+  componentWillMount () {
+    this.getCategories((catarray) => {
+      console.log("debug MOUNT")
+      console.log(catarray)
+      this.setState({categories: catarray})
+      })
+	 	}
+
 
   render() {
     return(
       <Nav bsStyle="tabs" activeKey="1" onSelect={this.handleSelect}>
-        <NavItem eventKey="1" href="/home">NavItem 1 content</NavItem>
-        <NavItem eventKey="2" title="Item">NavItem 2 content</NavItem>
-        <NavItem eventKey="3" disabled>NavItem 3 content</NavItem>
-        <NavDropdown eventKey="4" title="Dropdown" id="nav-dropdown">
+        <NavItem eventKey="1" href="/">Home</NavItem>
+        <NavDropdown title="All Categories" id="nav-dropdown">
           {this.renderCategoryMenu()}
         </NavDropdown>
       </Nav>
