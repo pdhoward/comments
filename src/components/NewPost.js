@@ -5,6 +5,7 @@ import {Button, FormControl,
 				FormGroup, ControlLabel,
 				Col,
 				HelpBlock, Form} 					from 'react-bootstrap';
+import API												from '../api'
 import FakeServer 								from '../FakeServer/FakeServer';
 import '../styles/CommentInput.css';
 
@@ -19,7 +20,8 @@ class NewPost extends Component {
 		 this.state = {
 				post: '',
 				author: '',
-				title: ''
+				title: '',
+				category: ''
 			}
 
 		this.styles = { maxWidth: '500px',
@@ -32,11 +34,27 @@ class NewPost extends Component {
 		this.getValidationState =   	this.getValidationState.bind(this)
 	}
 
+	/*
+	API.createNewPost = (postData) => {
+    const post = {
+      id: uuid(),
+      timestamp: Date.now(),
+      title: postData.title,
+      body: postData.body,
+      author: postData.author,
+      category: postData.category
+    };
+	*/
+
 	handleSubmit(event){
-		var server = new FakeServer();
-		server.addPostComment(this.props.postId, this.state.value);
-		this.props.submitCallback();
-		this.setState(this.getDefaultState());
+		API.createNewPost(this.state).then((response) => {
+			console.log("debugging new post")
+			console.log(response)
+		})
+		console.log("debugging more new post")
+		console.log(this.props)
+		
+		this.props.match.getHomePage()
 		event.preventDefault();
 	}
 
@@ -45,6 +63,10 @@ class NewPost extends Component {
 	 if (length > 20) return 'success';
 	 else if (length > 10) return 'warning';
 	 else if (length > 0) return 'error';
+ }
+
+ handleChangeCategory(e) {
+ 	this.setState({ category: e.target.value });
  }
 
  handleChangeTitle(e) {
@@ -58,11 +80,27 @@ class NewPost extends Component {
 	 this.setState({ author: e.target.value });
  }
 
+
  render() {
 		 return (
 			 <div style={this.styles}>
+		<form onSubmit={this.handleSubmit()}>
 			<Form horizontal>
 				<h1>Enter a New Post</h1>
+
+					<FormGroup controlId="formBasic">
+			 			<Col componentClass={ControlLabel} sm={2}>
+				 			Category
+			 			</Col>
+			 			<Col style={{maxWidth: '500px'}} sm={10}>
+							<FormControl
+		 					 type="text"
+		 					 value={this.state.category}
+		 					 placeholder="Select Category"
+		 					 onChange={this.handleChangeCategory}
+		 				 />
+			 			</Col>
+		 			</FormGroup>
 
 				<FormGroup controlId="formBasic">
 		 			<Col componentClass={ControlLabel} sm={2}>
@@ -108,11 +146,10 @@ class NewPost extends Component {
 		 			</Col>
 	 			</FormGroup>
 
+					<Button bsSize='sm' type='submit' bsStyle='primary'>Submit</Button>
 
-
-			<Button bsSize='sm' type='submit' bsStyle='primary'>Submit</Button>
-
-		 </Form>
+		 		</Form>
+	 		</form>
 		 </div>
 		);
 	}

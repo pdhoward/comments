@@ -24,7 +24,7 @@ class App extends Component {
             <Route exact path="/" component={Main}/>
             <Route exact path="/category/:category" component={Category}/>
             <Route exact path="/topic/:id" component={Topic}/>
-            <Route exact path="/newpost" component={NewPost}/>
+            <Route exact path="/newpost/:cb" component={NewPost}/>       
           </div>
           <Footer />
           <Fork />

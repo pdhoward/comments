@@ -4,6 +4,7 @@ import React, {Component} 		from 'react';
 import API										from '../api'
 import PostMain 							from './PostMain';
 import PostMainContainer 			from './PostMainContainer';
+import {Link} 							  from 'react-router-dom';
 import {Row, Col, Button} 		from 'react-bootstrap';
 
 class Main extends Component {
@@ -45,7 +46,9 @@ class Main extends Component {
 							{this.renderPosts()}
 						</PostMainContainer>
 
-						<Button href="/newpost" bsStyle="primary">New Post</Button>
+					<Link className='newpost' to={'/newpost' + this.getHomePage}>
+						<Button bsStyle="primary">New Post</Button>
+					</Link>
 
 					</div>
 				</Col>
