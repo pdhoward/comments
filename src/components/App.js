@@ -2,7 +2,7 @@
 
 import React, {Component}         from 'react';
 import { Route }           				from 'react-router-dom';
-import { initializeAPI }          from '../api';
+import API, { initializeAPI }     from '../api';
 import Main 								 			from './Main';
 import Category 									from './Category';
 import Topic           		 			  from './Topic';
@@ -19,8 +19,12 @@ class App extends Component {
     posts:[]
   }
 
-  handleSubmitForm = () => {
+  handleSubmitForm = (postData) => {
     console.log("SUBMITTED FORM")
+    console.log(postData)
+    API.createNewPost(postData).then(() => {
+      console.log("Form was processed")
+    })
   }
 
   render() {
@@ -35,8 +39,8 @@ class App extends Component {
             <Route exact path="/topic/:id" component={Topic}/>
             <Route exact path="/newpost" render={({history}) => (
               <NewPost
-                onSubmitPost={ ( ) => {
-                  this.handleSubmitForm()
+                onSubmitPost={ (postData) => {
+                  this.handleSubmitForm(postData)
                   history.push('/')
                 }}
               />

@@ -6,8 +6,6 @@ import {Button, FormControl,
 				FormGroup, ControlLabel,
 				Col,
 				HelpBlock, Form} 					from 'react-bootstrap';
-import API												from '../api'
-import FakeServer 								from '../FakeServer/FakeServer';
 import '../styles/CommentInput.css';
 
 class NewPost extends Component {
@@ -28,19 +26,21 @@ class NewPost extends Component {
 								 		margin: '0 auto' }
 
 		this.handleSubmit = 					this.handleSubmit.bind(this)
+		this.handleChangeCategory =		this.handleChangeCategory.bind(this)
 		this.handleChangePost = 			this.handleChangePost.bind(this)
 		this.handleChangeAuthor = 		this.handleChangeAuthor.bind(this)
 		this.handleChangeTitle = 		  this.handleChangeTitle.bind(this)
 		this.getValidationState =   	this.getValidationState.bind(this)
 	}
 
-
 	handleSubmit(e) {
-		event.preventDefault();
+		e.preventDefault();
+		console.log("JUST ENTERED NEW POST HANDLE SUBMIT")
 		const values = serializeForm(e.target, {hash: true})
-			if (this.props.onCreateContact)
-			this.props.onCreateContact(values)
-		}			
+		console.log(values)
+		if (this.props.onSubmitPost)
+				this.props.onSubmitPost(values)
+		}
 
 	getValidationState() {
 	 const length = this.state.post.length;
@@ -68,7 +68,7 @@ class NewPost extends Component {
  render() {
 		 return (
 			 <div style={this.styles}>
-		<form onSubmit={this.handleSubmit()}>
+		<form onSubmit={this.handleSubmit}>
 			<Form horizontal>
 				<h1>Enter a New Post</h1>
 
@@ -79,6 +79,7 @@ class NewPost extends Component {
 			 			<Col style={{maxWidth: '500px'}} sm={10}>
 							<FormControl
 		 					 type="text"
+							 name="category"
 		 					 value={this.state.category}
 		 					 placeholder="Select Category"
 		 					 onChange={this.handleChangeCategory}
@@ -93,6 +94,7 @@ class NewPost extends Component {
 		 			<Col style={{maxWidth: '500px'}} sm={10}>
 						<FormControl
 	 					 type="text"
+						 name="title"
 	 					 value={this.state.title}
 	 					 placeholder="Enter Post Title"
 	 					 onChange={this.handleChangeTitle}
@@ -107,6 +109,7 @@ class NewPost extends Component {
 		 			<Col style={{maxWidth: '500px'}} sm={10}>
 						<FormControl
 	 					 type="text"
+						 name="body"
 	 					 value={this.state.Post}
 	 					 placeholder="Enter Post Content"
 	 					 onChange={this.handleChangePost}
@@ -123,15 +126,14 @@ class NewPost extends Component {
 		 			<Col style={{maxWidth: '500px'}} sm={10}>
 						<FormControl
 	 					 type="text"
+						 name="author"
 	 					 value={this.state.author}
 	 					 placeholder="Enter Author Name"
 	 					 onChange={this.handleChangeAuthor}
 	 				 />
 		 			</Col>
 	 			</FormGroup>
-
 					<Button bsSize='sm' type='submit' bsStyle='primary'>Submit</Button>
-
 		 		</Form>
 	 		</form>
 		 </div>

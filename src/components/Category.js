@@ -21,8 +21,8 @@ class Category extends Component {
 			let selectedCategory = posts.filter((post) => {if (post.category === this.props.match.params.category) return post})
 			this.setState({posts: selectedCategory})
 		})
-
 	 }
+
 	componentWillMount () {
 	 	this.getCategoryPosts()
 	 	}
