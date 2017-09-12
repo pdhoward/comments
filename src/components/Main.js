@@ -15,6 +15,11 @@ class Main extends Component {
 			posts: []
 		}
 		this.getHomePage =    this.getHomePage.bind(this)
+		this.styles = { maxWidth: '2000px',
+								 		margin: '0',
+										position: 'fixed',
+										top: '150px',
+										left: '50px' }
 	}
 
 	getHomePage() {
@@ -45,13 +50,16 @@ class Main extends Component {
 						<PostMainContainer>
 							{this.renderPosts()}
 						</PostMainContainer>
-
-					<Link className='newpost' to={'/newpost/'}>
-						<Button bsStyle="primary">New Post</Button>
-					</Link>
-
 					</div>
 				</Col>
+
+					<div style={this.styles}>
+							<Link className='newpost' to={'/newpost/'}>
+								<Button bsStyle="primary" bsSize="large">New Post</Button>
+							</Link>
+					</div>
+
+
 				<Col xs={0} sm={1} md={3} />
 			</Row>
 		);
