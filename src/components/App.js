@@ -29,11 +29,18 @@ class App extends Component {
         <div className="App__wrap">
           <Navbar />
           <div className="App_content">
+
             <Route exact path="/" component={Main}/>
             <Route exact path="/category/:category" component={Category}/>
             <Route exact path="/topic/:id" component={Topic}/>
-            <Route path="/newpost" render={({history}) => (
-              <NewPost onSubmitPost={ ( ) => { this.handleSubmitForm() history.push('/') }}/>
+            <Route exact path="/newpost" render={({history}) => (
+              <NewPost
+                onSubmitPost={ ( ) => {
+                  this.handleSubmitForm()
+                  history.push('/')
+                }}
+              />
+            )} />
 
           </div>
           <Footer />

@@ -1,6 +1,7 @@
 
 import React, {Component} 				from 'react';
 import PropTypes 									from 'prop-types';
+import serializeForm      				from 'form-serialize'
 import {Button, FormControl,
 				FormGroup, ControlLabel,
 				Col,
@@ -11,8 +12,7 @@ import '../styles/CommentInput.css';
 
 class NewPost extends Component {
 	propTypes: {
-		submitCallback: PropTypes.func.isRequired,
-		postId: PropTypes.string.isRequired
+		onSubmitPost: PropTypes.func.isRequired
 	}
 
 	constructor() {
@@ -35,15 +35,12 @@ class NewPost extends Component {
 	}
 
 
-	handleSubmit(event){
-		API.createNewPost(this.state).then((response) => {
-			console.log("debugging new post")
-			console.log(response)
-		})
-		console.log("debugging more new post")
-		console.log(this.props)
+	handleSubmit(e) {
 		event.preventDefault();
-	}
+		const values = serializeForm(e.target, {hash: true})
+			if (this.props.onCreateContact)
+			this.props.onCreateContact(values)
+		}			
 
 	getValidationState() {
 	 const length = this.state.post.length;
