@@ -16,25 +16,37 @@ initializeAPI()
 
 class App extends Component {
   state = {
-    posts:[]
+    posts:[],
+    sortVote: true,
+    sortDate: true
   }
 
   handleSubmitForm = (postData) => {
-    console.log("SUBMITTED FORM")
-    console.log(postData)
     API.createNewPost(postData).then(() => {
       console.log("Form was processed")
     })
+  }
+
+  toggleSortVote = () => {
+    console.log("TOGGLE VOTE EXECUTED")
+    console.log(this.state.sortVote)
+    if (this.state.sortVote) { return this.setState({sortVote: false}) }
+    return this.setState({sortVote: true})
   }
 
   render() {
     return(
       <div className="App">
         <div className="App__wrap">
-          <Navbar />
+          <Navbar toggleVote={ ( ) => {
+              this.toggleSortVote( )
+            }} />
           <div className="App_content">
 
-            <Route exact path="/" component={Main}/>
+            <Route exact path="/" render={({history}) => (
+              <Main sortvote={this.state.sortVote} sortdate={this.state.sortDate} />
+                )}/>
+
             <Route exact path="/category/:category" component={Category}/>
             <Route exact path="/topic/:id" component={Topic}/>
             <Route exact path="/newpost" render={({history}) => (

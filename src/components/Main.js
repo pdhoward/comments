@@ -5,7 +5,9 @@ import API										from '../api'
 import PostMain 							from './PostMain';
 import PostMainContainer 			from './PostMainContainer';
 import {Link} 							  from 'react-router-dom';
-import {Row, Col, Button} 		from 'react-bootstrap';
+import {Row, Col, Button,
+				SplitButton,
+				MenuItem } 						from 'react-bootstrap';
 
 class Main extends Component {
 
@@ -15,11 +17,26 @@ class Main extends Component {
 			posts: []
 		}
 		this.getHomePage =    this.getHomePage.bind(this)
+		this.handleSelect =   this.handleSelect.bind(this)
 		this.styles = { maxWidth: '2000px',
 								 		margin: '0',
 										position: 'fixed',
 										top: '150px',
 										left: '50px' }
+		this.styles2 = { maxWidth: '2000px',
+										margin: '0',
+										position: 'fixed',
+									  top: '500px',
+										left: '50px' }
+	}
+
+	handleSelect(eventKey, event) {
+		event.preventDefault();
+		if (eventKey=='1') {console.log("EVENT 1 FIRED")}
+		if (eventKey=='2') {console.log("EVENT 2 FIRED")}
+		//alert(`selected ${eventKey}`);
+		//this.props.toggleVote()
+
 	}
 
 	getHomePage() {
@@ -33,6 +50,8 @@ class Main extends Component {
 	 	}
 
 	renderPosts = () => {
+		console.log("DEBUG APP > MAIN SORT")
+		console.log(this.props)
 		return this.state.posts.map(post => (
 			<PostMain key={post.id} id={post.id} title={post.title}
 				        author={post.author} votescore={post.voteScore} category={post.category}
@@ -57,6 +76,16 @@ class Main extends Component {
 							<Link className='newpost' to={'/newpost/'}>
 								<Button bsStyle="primary" bsSize="large">New Post</Button>
 							</Link>
+					</div>
+
+					<div style={this.styles2}>
+						<SplitButton bsStyle={'success'} bsSize="large" title={'sort by'} key='0'
+												 id={'basic-sort-dropdown'} onSelect={this.handleSelect}>
+								<MenuItem eventKey="1">vote asc</MenuItem>
+								<MenuItem eventKey="2">vote dec</MenuItem>
+								<MenuItem eventKey="3">date asc</MenuItem>
+								<MenuItem eventKey="4">date dec</MenuItem>
+							</SplitButton>
 					</div>
 
 
