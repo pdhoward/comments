@@ -1,11 +1,11 @@
 
-import React, {Component} 				from 'react';
-import PropTypes 									from 'prop-types';
-import serializeForm      				from 'form-serialize'
+import React, {Component} 					from 'react';
+import PropTypes 										from 'prop-types';
+import serializeForm      					from 'form-serialize'
 import {Button, FormControl,
 				FormGroup, ControlLabel,
-				Col,
-				HelpBlock, Form} 					from 'react-bootstrap';
+				Col, InputGroup, DropdownButton,
+				MenuItem, HelpBlock, Form} 	from 'react-bootstrap';
 import '../styles/CommentInput.css';
 
 class NewPost extends Component {
@@ -35,9 +35,8 @@ class NewPost extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		console.log("JUST ENTERED NEW POST HANDLE SUBMIT")
 		const values = serializeForm(e.target, {hash: true})
-		console.log(values)
+		
 		if (this.props.onSubmitPost)
 				this.props.onSubmitPost(values)
 		}
@@ -48,6 +47,13 @@ class NewPost extends Component {
 	 else if (length > 10) return 'warning';
 	 else if (length > 0) return 'error';
  }
+
+// to do - validation routine dynamically tied to categories registered to server
+ getValidationCat() {
+	const entry = this.state.category;
+	if (entry == 'redux' || entry == 'react' || entry == 'udacity') return 'success';
+
+}
 
  handleChangeCategory(e) {
  	this.setState({ category: e.target.value });
@@ -72,19 +78,21 @@ class NewPost extends Component {
 			<Form horizontal>
 				<h1>Enter a New Post</h1>
 
-					<FormGroup controlId="formBasic">
+					<FormGroup controlId="formBasic" validationState={this.getValidationCat()}>
 			 			<Col componentClass={ControlLabel} sm={2}>
 				 			Category
 			 			</Col>
 			 			<Col style={{maxWidth: '500px'}} sm={10}>
 							<FormControl
-		 					 type="text"
+							 type="text"
 							 name="category"
-		 					 value={this.state.category}
-		 					 placeholder="Select Category"
-		 					 onChange={this.handleChangeCategory}
-		 				 />
+							 placeholder="Enter Category"
+							 value={this.state.category}
+							 onChange={this.handleChangeCategory}
+							 />
 			 			</Col>
+						<FormControl.Feedback />
+						 <HelpBlock>Valid categories react, redux, udacity</HelpBlock>
 		 			</FormGroup>
 
 				<FormGroup controlId="formBasic">
