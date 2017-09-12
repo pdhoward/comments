@@ -1,6 +1,7 @@
 
 
 import React, {Component} 		from 'react';
+import sortBy                 from 'sort-by'
 import API										from '../api'
 import PostMain 							from './PostMain';
 import PostMainContainer 			from './PostMainContainer';
@@ -14,7 +15,9 @@ class Main extends Component {
 	constructor() {
 		super()
 		this.state = {
-			posts: []
+			posts: [],
+			sortVote: true,
+	    sortDate: true
 		}
 		this.getHomePage =    this.getHomePage.bind(this)
 		this.handleSelect =   this.handleSelect.bind(this)
@@ -32,12 +35,31 @@ class Main extends Component {
 
 	handleSelect(eventKey, event) {
 		event.preventDefault();
-		if (eventKey=='1') {console.log("EVENT 1 FIRED")}
-		if (eventKey=='2') {console.log("EVENT 2 FIRED")}
+		if (eventKey=='1') {
+			console.log("EVENT 1 FIRED")
+			this.toggleVote()
+		}
+		if (eventKey=='2') {
+			console.log("EVENT 2 FIRED")
+			this.toggleDate()
+		}
 		//alert(`selected ${eventKey}`);
-		//this.props.toggleVote()
 
 	}
+
+	toggleVote = () => {
+    console.log("TOGGLE VOTE EXECUTED")
+    console.log(this.state.sortVote)
+    if (this.state.sortVote) { return this.setState({sortVote: false}) }
+    return this.setState({sortVote: true})
+  }
+
+	toggleDate = () => {
+    console.log("TOGGLE Date EXECUTED")
+    console.log(this.state.sortDate)
+    if (this.state.sortDate) { return this.setState({sortDate: false}) }
+    return this.setState({sortDate: true})
+  }
 
 	getHomePage() {
 		API.getAllPosts().then((posts) => {

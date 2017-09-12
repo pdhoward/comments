@@ -16,9 +16,8 @@ initializeAPI()
 
 class App extends Component {
   state = {
-    posts:[],
-    sortVote: true,
-    sortDate: true
+    posts:[]
+
   }
 
   handleSubmitForm = (postData) => {
@@ -44,8 +43,7 @@ class App extends Component {
           <div className="App_content">
 
             <Route exact path="/" render={({history}) => (
-              <Main sortvote={this.state.sortVote} sortdate={this.state.sortDate} />
-                )}/>
+              <Main  />  )}/>
 
             <Route exact path="/category/:category" component={Category}/>
             <Route exact path="/topic/:id" component={Topic}/>
