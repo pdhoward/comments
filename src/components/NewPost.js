@@ -1,6 +1,7 @@
 
 import React, {Component} 					from 'react';
 import PropTypes 										from 'prop-types';
+import { connect } 									from 'react-redux';
 import serializeForm      					from 'form-serialize'
 import {Button, FormControl,
 				FormGroup, ControlLabel,
@@ -9,40 +10,20 @@ import {Button, FormControl,
 import '../styles/CommentInput.css';
 
 class NewPost extends Component {
-	propTypes: {
-		onSubmitPost: PropTypes.func.isRequired
-	}
 
-	constructor() {
-		super()
-		 this.state = {
-				post: '',
-				author: '',
-				title: '',
-				category: ''
-			}
-
-		this.styles = { maxWidth: '500px',
-								 		margin: '0 auto' }
-
-		this.handleSubmit = 					this.handleSubmit.bind(this)
-		this.handleChangeCategory =		this.handleChangeCategory.bind(this)
-		this.handleChangePost = 			this.handleChangePost.bind(this)
-		this.handleChangeAuthor = 		this.handleChangeAuthor.bind(this)
-		this.handleChangeTitle = 		  this.handleChangeTitle.bind(this)
-		this.getValidationState =   	this.getValidationState.bind(this)
-	}
+		styles = { maxWidth: '500px',
+							 margin: '0 auto' }
 
 	handleSubmit(e) {
 		e.preventDefault();
 		const values = serializeForm(e.target, {hash: true})
-		
+
 		if (this.props.onSubmitPost)
 				this.props.onSubmitPost(values)
 		}
 
 	getValidationState() {
-	 const length = this.state.post.length;
+	 const length = this.props.post.length;
 	 if (length > 20) return 'success';
 	 else if (length > 10) return 'warning';
 	 else if (length > 0) return 'error';
@@ -50,7 +31,7 @@ class NewPost extends Component {
 
 // to do - validation routine dynamically tied to categories registered to server
  getValidationCat() {
-	const entry = this.state.category;
+	const entry = this.props.category;
 	if (entry == 'redux' || entry == 'react' || entry == 'udacity') return 'success';
 
 }
@@ -87,7 +68,7 @@ class NewPost extends Component {
 							 type="text"
 							 name="category"
 							 placeholder="Enter Category"
-							 value={this.state.category}
+							 value={this.props.category}
 							 onChange={this.handleChangeCategory}
 							 />
 			 			</Col>
@@ -103,7 +84,7 @@ class NewPost extends Component {
 						<FormControl
 	 					 type="text"
 						 name="title"
-	 					 value={this.state.title}
+	 					 value={this.props.title}
 	 					 placeholder="Enter Post Title"
 	 					 onChange={this.handleChangeTitle}
 	 				 />
@@ -118,7 +99,7 @@ class NewPost extends Component {
 						<FormControl
 	 					 type="text"
 						 name="body"
-	 					 value={this.state.Post}
+	 					 value={this.props.post}
 	 					 placeholder="Enter Post Content"
 	 					 onChange={this.handleChangePost}
 	 				 />
@@ -135,7 +116,7 @@ class NewPost extends Component {
 						<FormControl
 	 					 type="text"
 						 name="author"
-	 					 value={this.state.author}
+	 					 value={this.props.author}
 	 					 placeholder="Enter Author Name"
 	 					 onChange={this.handleChangeAuthor}
 	 				 />
@@ -149,4 +130,49 @@ class NewPost extends Component {
 	}
 };
 
-export default NewPost;
+NewPost.propTypes = {
+  submitDisabled: PropTypes.bool,
+  visible: PropTypes.bool,
+  submitting: PropTypes.bool,
+  submitError: PropTypes.object,
+  categories: PropTypes.arrayOf(PropTypes.string),
+  author: PropTypes.string,
+  category: PropTypes.string,
+  title: PropTypes.string,
+  body: PropTypes.string,
+  formType: PropTypes.oneOf(['new', 'edit'])
+};
+
+NewPost.defaultProps = {
+  submitDisabled: true,
+  visible: false,
+  submitting: false,
+  submitError: null,
+  categories: [],
+  formType: 'new'
+};
+
+const mapStateToProps = (state, ownProps) => {
+  const { visible, submitting, submitError, formType, postData } = state.postForm;
+  const { categories } = state.category;
+  const requiredFields = ['title', 'body'];
+  if (formType === 'new') {
+    requiredFields.push('author', 'category');
+  }
+  const submitDisabled = requiredFields.some(field => {
+    const value = postData[field];
+  //  return !(_.isString(value) && _.trim(value).length > 0);
+  });
+
+  return {
+    formType,
+    submitDisabled,
+    visible,
+    submitting,
+    submitError,
+    ...postData,
+    categories
+  };
+};
+
+export default connect(mapStateToProps)(NewPost);

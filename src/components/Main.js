@@ -1,9 +1,16 @@
 
+/////////////////////////////////////////////////////
+/////  Display Posts & enable action        ///////
+/////////////////////////////////////////////////
 
 import React, {Component} 		from 'react';
+import { connect } 						from 'react-redux';
+import { getAllPosts } 				from '../store/postStore';
 import sortBy                 from 'sort-by'
 import API										from '../api'
 import PostMain 							from './PostMain';
+import NewPost								from './NewPost';
+import PropTypes 							from 'prop-types';
 import PostMainContainer 			from './PostMainContainer';
 import {Link} 							  from 'react-router-dom';
 import {Row, Col, Button,
@@ -12,61 +19,28 @@ import {Row, Col, Button,
 
 class Main extends Component {
 
-	constructor() {
-		super()
-		this.state = {
-			posts: [],
-			sortlogic: 1
-
-		}
-		this.getHomePage =    this.getHomePage.bind(this)
-		this.handleSelect =   this.handleSelect.bind(this)
-		this.styles = { maxWidth: '2000px',
+		styles = { maxWidth: '2000px',
 								 		margin: '0',
 										position: 'fixed',
 										top: '150px',
 										left: '50px' }
-		this.styles2 = { maxWidth: '2000px',
+		styles2 = { maxWidth: '2000px',
 										margin: '0',
 										position: 'fixed',
 									  top: '500px',
 										left: '50px' }
-	}
 
-	handleSelect(eventKey, event) {
-		event.preventDefault();
-		if (eventKey=='1') {
-			this.setState({sortlogic: 1})
-		}
-		if (eventKey=='2') {
-			this.setState({sortlogic: 2})
-		}
-		if (eventKey=='3') {
-			this.setState({sortlogic: 3})
-		}
-		if (eventKey=='4') {
-			this.setState({sortlogic: 4})
-		}
-
-	}
-
-	getHomePage() {
-		API.getAllPosts().then((posts) => {
-			this.setState({posts: posts})
-		})
-
+	handleSelect() {
+		console.log("BUTTON CLICKED")
 	 }
-	componentWillMount () {
-	 	this.getHomePage()
-	 	}
+
+	componentDidMount() {
+     this.props.dispatch(getAllPosts());
+   }
 
 	renderPosts = () => {
-		let showingPosts = this.state.posts.slice()
-		//let showingPosts = JSON.parse(JSON.stringify(tags));
-		if (this.state.sortlogic == 1) showingPosts.sort(sortBy('voteScore'))
-		if (this.state.sortlogic == 2) showingPosts.sort(sortBy('-voteScore'))
-		if (this.state.sortlogic == 3) showingPosts.sort(sortBy('timestamp'))
-		if (this.state.sortlogic == 4) showingPosts.sort(sortBy('-timestamp'))
+		let showingPosts = this.props.params.category
+
 		return showingPosts.map(post => (
 			<PostMain key={post.id} id={post.id} title={post.title}
 				        author={post.author} votescore={post.voteScore} category={post.category}
@@ -85,6 +59,7 @@ class Main extends Component {
 							{this.renderPosts()}
 						</PostMainContainer>
 					</div>
+						<NewPost />
 				</Col>
 
 					<div style={this.styles}>
@@ -110,4 +85,4 @@ class Main extends Component {
 	}
 };
 
-export default Main;
+export default connect()(Main);
