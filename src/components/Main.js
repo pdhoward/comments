@@ -61,10 +61,8 @@ class Main extends Component {
 	 	}
 
 	renderPosts = () => {
-		console.log("DEBUG APP > MAIN SORT")
-		console.log(this.props)
 		let showingPosts = this.state.posts.slice()
-
+		//let showingPosts = JSON.parse(JSON.stringify(tags));
 		if (this.state.sortlogic == 1) showingPosts.sort(sortBy('voteScore'))
 		if (this.state.sortlogic == 2) showingPosts.sort(sortBy('-voteScore'))
 		if (this.state.sortlogic == 3) showingPosts.sort(sortBy('timestamp'))

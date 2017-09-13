@@ -50,20 +50,30 @@ class Category extends Component {
 	 }
 
 	componentWillMount () {
+		console.log("ENTERED WILL MOUNT")
 	 	this.getCategoryPosts()
 	 	}
 
 	renderPosts = () => {
 		let showingPosts = this.state.posts.slice()
+
+		if (showingPosts.length > 0) {
+		console.log("DEBUG CATEGORY SORT")
+		console.log(this.state)
+		console.log(this.props)
+		console.log(showingPosts)
 		if (this.state.sortlogic == 1) showingPosts.sort(sortBy('voteScore'))
 		if (this.state.sortlogic == 2) showingPosts.sort(sortBy('-voteScore'))
 		if (this.state.sortlogic == 3) showingPosts.sort(sortBy('timestamp'))
 		if (this.state.sortlogic == 4) showingPosts.sort(sortBy('-timestamp'))
-		return this.showingPosts.map(post => (
+
+		return showingPosts.map(post => (
 			<PostCategory key={post.id} id={post.id} title={post.title}
 				        author={post.author} votescore={post.voteScore} category={post.category}
 								deleted={post.deleted} timestamp={post.timestamp} />
 			))
+		}
+
 		}
 
 	render() {
