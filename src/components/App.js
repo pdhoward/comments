@@ -26,13 +26,6 @@ class App extends Component {
     })
   }
 
-  toggleSortVote = () => {
-    console.log("TOGGLE VOTE EXECUTED")
-    console.log(this.state.sortVote)
-    if (this.state.sortVote) { return this.setState({sortVote: false}) }
-    return this.setState({sortVote: true})
-  }
-
   render() {
     return(
       <div className="App">

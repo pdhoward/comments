@@ -16,8 +16,8 @@ class Main extends Component {
 		super()
 		this.state = {
 			posts: [],
-			sortVote: true,
-	    sortDate: true
+			sortlogic: 1
+
 		}
 		this.getHomePage =    this.getHomePage.bind(this)
 		this.handleSelect =   this.handleSelect.bind(this)
@@ -36,30 +36,19 @@ class Main extends Component {
 	handleSelect(eventKey, event) {
 		event.preventDefault();
 		if (eventKey=='1') {
-			console.log("EVENT 1 FIRED")
-			this.toggleVote()
+			this.setState({sortlogic: 1})
 		}
 		if (eventKey=='2') {
-			console.log("EVENT 2 FIRED")
-			this.toggleDate()
+			this.setState({sortlogic: 2})
 		}
-		//alert(`selected ${eventKey}`);
+		if (eventKey=='3') {
+			this.setState({sortlogic: 3})
+		}
+		if (eventKey=='4') {
+			this.setState({sortlogic: 4})
+		}
 
 	}
-
-	toggleVote = () => {
-    console.log("TOGGLE VOTE EXECUTED")
-    console.log(this.state.sortVote)
-    if (this.state.sortVote) { return this.setState({sortVote: false}) }
-    return this.setState({sortVote: true})
-  }
-
-	toggleDate = () => {
-    console.log("TOGGLE Date EXECUTED")
-    console.log(this.state.sortDate)
-    if (this.state.sortDate) { return this.setState({sortDate: false}) }
-    return this.setState({sortDate: true})
-  }
 
 	getHomePage() {
 		API.getAllPosts().then((posts) => {
@@ -74,7 +63,13 @@ class Main extends Component {
 	renderPosts = () => {
 		console.log("DEBUG APP > MAIN SORT")
 		console.log(this.props)
-		return this.state.posts.map(post => (
+		let showingPosts = this.state.posts.slice()
+
+		if (this.state.sortlogic == 1) showingPosts.sort(sortBy('voteScore'))
+		if (this.state.sortlogic == 2) showingPosts.sort(sortBy('-voteScore'))
+		if (this.state.sortlogic == 3) showingPosts.sort(sortBy('timestamp'))
+		if (this.state.sortlogic == 4) showingPosts.sort(sortBy('-timestamp'))
+		return showingPosts.map(post => (
 			<PostMain key={post.id} id={post.id} title={post.title}
 				        author={post.author} votescore={post.voteScore} category={post.category}
 								deleted={post.deleted} timestamp={post.timestamp} />
