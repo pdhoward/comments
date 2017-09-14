@@ -11,6 +11,7 @@ import {Row, Col, Button,
 				SplitButton,
 				MenuItem } 						from 'react-bootstrap';
 import PostMainContainer 			from './PostMainContainer';
+import { getAllPosts } 				from '../store/postStore';
 import MainLine 							from './MainLine';
 
 class Main extends Component {
@@ -25,6 +26,10 @@ class Main extends Component {
 										position: 'fixed',
 									  top: '500px',
 										left: '50px' }
+
+		componentDidMount() {
+					this.props.dispatch(getAllPosts());
+		}
 
 
 	render() {

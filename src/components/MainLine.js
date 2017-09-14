@@ -13,7 +13,6 @@ import NewPost								from './NewPost';
 import PropTypes 							from 'prop-types';
 import PostMainContainer 			from './PostMainContainer';
 import {Link} 							  from 'react-router-dom';
-import _ from 'lodash';
 import {Row, Col, Button,
 				SplitButton,
 				MenuItem } 						from 'react-bootstrap';
@@ -100,21 +99,13 @@ MainLine.defaultProps = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-    const { category } = ownProps;
-    const { sortBy, sortOrder } = state.post;
-  let posts2 = _.values(state.post.posts);
-	 let posts = state.post.posts;
-	// DEBUG
-	console.log("DEBUG MAIN -- MAP STATE TO PROPS")
-	console.log(ownProps)
-	console.log("------------")
-	console.log(state)
-	console.log("------------")
-	console.log(posts)
-	console.log("------------")
-	console.log(posts2)
-	console.log("------------")
-	console.log(category)
+  const { category } = ownProps;
+  const { sortBy, sortOrder } = state.post;
+	let posts = []
+
+	Object.keys(state.post.posts).forEach(function(key) {
+			 posts.push(state.post.posts[key])
+	 });
 
   //if (_.isString(category)) {
   //  posts = _.values(posts).filter(post => post.category === category);
@@ -123,13 +114,12 @@ const mapStateToProps = (state, ownProps) => {
     posts = posts.filter(post => post.category === category);
   }
 
-if (posts) {
-  posts = posts2.sort((a, b) => {
+  posts = posts.sort((a, b) => {
     const temp = a[sortBy] - b[sortBy];
     const modifier = sortOrder === 'asc' ? 1 : -1;
     return  temp * modifier;
   });
-}
+
 
   const { loading, error } = state.post.posts;
   return { loading, error, posts };
