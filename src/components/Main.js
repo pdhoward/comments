@@ -5,15 +5,13 @@
 
 import React, {Component} 		from 'react';
 import { connect } 						from 'react-redux';
-import { getAllPosts } 				from '../store/postStore';
-import MainLine 							from './MainLine';
-import _ from 'lodash';
 import PropTypes 							from 'prop-types';
-import PostMainContainer 			from './PostMainContainer';
 import {Link} 							  from 'react-router-dom';
 import {Row, Col, Button,
 				SplitButton,
 				MenuItem } 						from 'react-bootstrap';
+import PostMainContainer 			from './PostMainContainer';
+import MainLine 							from './MainLine';
 
 class Main extends Component {
 
@@ -29,18 +27,8 @@ class Main extends Component {
 										left: '50px' }
 
 
-	componentWillMount() {
-		console.log("DEBUG MAIN - entered component will mount")
-     this.props.dispatch(getAllPosts());
-   }
-
 	render() {
-		//console.log("DEBUG MAIN")
-		//console.log(this.props)
-	 //const category = _.get(this.props, 'match.params.category', null);
-		//let category2 = this.props.match.params.category
-		//console.log(category)
-		//console.log(category2)
+
 		return(
 			<Row>
 				<Col xs={0} sm={1} md={3} />
