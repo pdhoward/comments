@@ -5,9 +5,7 @@
 
 import React, {Component} 		from 'react';
 import { connect } 						from 'react-redux';
-import { getAllPosts } 				from '../store/postStore';
 import sortBy                 from 'sort-by'
-import API										from '../api'
 import PostMain 							from './PostMain';
 import NewPost								from './NewPost';
 import PropTypes 							from 'prop-types';

@@ -26,7 +26,6 @@ class CategoryLine extends Component {
 
 	}
 
-
 	renderPosts = () => {
 		console.log("DEBUG CATEGORY LINE")
 		console.log(this.props)
@@ -38,9 +37,10 @@ class CategoryLine extends Component {
 													<PostCategory key={post.id} id={post.id} title={post.title}
 				        						author={post.author} votescore={post.voteScore} category={post.category}
 														deleted={post.deleted} timestamp={post.timestamp} />
-												))
-											}
-										}
+									))
+								}
+						}
+//
 
 	render() {
 		return(
