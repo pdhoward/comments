@@ -14,6 +14,7 @@ import PostMainContainer 			from './PostMainContainer';
 import { getAllPosts } 				from '../store/postStore';
 import MainLine 							from './MainLine';
 
+
 class Main extends Component {
 
 		styles = { maxWidth: '2000px',
@@ -68,7 +69,5 @@ class Main extends Component {
 		);
 	}
 };
-
-
 
 export default connect()(Main);
