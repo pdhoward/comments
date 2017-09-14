@@ -47,7 +47,7 @@ const mapStateToProps = (state, ownProps) => {
     id: '',
     post: state.post.posts[id],
     delete: state.post.delete,
-    isDetailView: ownProps.match.params.postId
+//    isDetailView: ownProps.match.params.postId
   };
 };
 

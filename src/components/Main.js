@@ -35,10 +35,12 @@ class Main extends Component {
    }
 
 	render() {
-		console.log("DEBUG MAIN")
-		console.log(this.props)
-	 const category = _.get(this.props, 'match.params.category', null);
-		let category2 = this.props.match.params.category
+		//console.log("DEBUG MAIN")
+		//console.log(this.props)
+	 //const category = _.get(this.props, 'match.params.category', null);
+		//let category2 = this.props.match.params.category
+		//console.log(category)
+		//console.log(category2)
 		return(
 			<Row>
 				<Col xs={0} sm={1} md={3} />
@@ -46,7 +48,7 @@ class Main extends Component {
 					<div className="Main">
 
 						<PostMainContainer>
-							<MainLine category = {category}/>
+							<MainLine />
 						</PostMainContainer>
 					</div>
 				</Col>

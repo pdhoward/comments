@@ -13,6 +13,7 @@ import NewPost								from './NewPost';
 import PropTypes 							from 'prop-types';
 import PostMainContainer 			from './PostMainContainer';
 import {Link} 							  from 'react-router-dom';
+import _ from 'lodash';
 import {Row, Col, Button,
 				SplitButton,
 				MenuItem } 						from 'react-bootstrap';
@@ -37,11 +38,8 @@ class MainLine extends Component {
 	renderPosts = () => {
 		console.log("DEBUG MAINLINE")
 		console.log(this.props)
-
-		if (this.props.category != undefined){
-			console.log(Array.isArray(this.props.category.posts))
-		if (Array.isArray(this.props.category.posts)) {
-				let showingPosts = this.props.category.posts.slice()
+		if (Array.isArray(this.props.posts)) {
+				let showingPosts = this.props.posts.slice()
 
 				return showingPosts.map(post => (
 					<PostMain key={post.id} id={post.id} title={post.title}
@@ -49,7 +47,7 @@ class MainLine extends Component {
 								deleted={post.deleted} timestamp={post.timestamp} />
 						))
 					}
-				}
+
 }
 
 	render() {
@@ -104,7 +102,7 @@ MainLine.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
     const { category } = ownProps;
     const { sortBy, sortOrder } = state.post;
-//  let posts = _.values(state.post.posts);
+  let posts2 = _.values(state.post.posts);
 	 let posts = state.post.posts;
 	// DEBUG
 	console.log("DEBUG MAIN -- MAP STATE TO PROPS")
@@ -114,6 +112,8 @@ const mapStateToProps = (state, ownProps) => {
 	console.log("------------")
 	console.log(posts)
 	console.log("------------")
+	console.log(posts2)
+	console.log("------------")
 	console.log(category)
 
   //if (_.isString(category)) {
@@ -122,15 +122,15 @@ const mapStateToProps = (state, ownProps) => {
 	if (category) {
     posts = posts.filter(post => post.category === category);
   }
- /*
+
 if (posts) {
-  posts = posts.sort((a, b) => {
+  posts = posts2.sort((a, b) => {
     const temp = a[sortBy] - b[sortBy];
     const modifier = sortOrder === 'asc' ? 1 : -1;
     return  temp * modifier;
   });
 }
-*/
+
   const { loading, error } = state.post.posts;
   return { loading, error, posts };
 };
