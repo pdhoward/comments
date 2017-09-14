@@ -1,15 +1,13 @@
 
 /////////////////////////////////////////////////////
-/////  Display Posts & enable action        ///////
+/////  Wrapper component for Mainline      ///////
 /////////////////////////////////////////////////
 
 import React, {Component} 		from 'react';
 import { connect } 						from 'react-redux';
 import { getAllPosts } 				from '../store/postStore';
-import sortBy                 from 'sort-by'
-import API										from '../api'
-import PostMain 							from './PostMain';
-import NewPost								from './NewPost';
+import MainLine 							from './MainLine';
+import _ from 'lodash';
 import PropTypes 							from 'prop-types';
 import PostMainContainer 			from './PostMainContainer';
 import {Link} 							  from 'react-router-dom';
@@ -30,30 +28,17 @@ class Main extends Component {
 									  top: '500px',
 										left: '50px' }
 
-	handleSelect() {
-		console.log("BUTTON CLICKED")
-	 }
 
 	componentWillMount() {
+		console.log("DEBUG MAIN - entered component will mount")
      this.props.dispatch(getAllPosts());
    }
 
-	renderPosts = () => {
+	render() {
 		console.log("DEBUG MAIN")
 		console.log(this.props)
-
-		if (this.props.match.params.category) {
-				let showingPosts = this.props.match.params.category
-
-				return showingPosts.map(post => (
-					<PostMain key={post.id} id={post.id} title={post.title}
-				        author={post.author} votescore={post.voteScore} category={post.category}
-								deleted={post.deleted} timestamp={post.timestamp} />
-						))
-					}
-}
-
-	render() {
+	 const category = _.get(this.props, 'match.params.category', null);
+		let category2 = this.props.match.params.category
 		return(
 			<Row>
 				<Col xs={0} sm={1} md={3} />
@@ -61,10 +46,9 @@ class Main extends Component {
 					<div className="Main">
 
 						<PostMainContainer>
-							{this.renderPosts()}
+							<MainLine category = {category}/>
 						</PostMainContainer>
 					</div>
-						<NewPost />
 				</Col>
 
 					<div style={this.styles}>
@@ -89,5 +73,7 @@ class Main extends Component {
 		);
 	}
 };
+
+
 
 export default connect()(Main);

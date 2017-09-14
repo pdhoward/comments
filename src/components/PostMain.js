@@ -7,15 +7,6 @@ import '../styles/PostMain.css';
 
 
 class PostMain extends Component {
-	propTypes: {
-		title: PropTypes.string.isRequired,
-		author: PropTypes.string.isRequired,
-		category: PropTypes.string.isRequired,
-		votescore: PropTypes.number.isRequired,
-		timestamp: PropTypes.number.isRequired,
-		id: PropTypes.number.isRequired,
-		deleted: PropTypes.boolean.isRequired,
-	}
 
 	render() {
 		let title = this.props.category

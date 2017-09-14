@@ -2,6 +2,7 @@
   "name": "comments",
   "version": "1.0.0",
   "dependencies": {
+    "lodash": "^4.17.4",
     "form-serialize": "^0.7.2",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
