@@ -226,7 +226,7 @@ const handlePromiseDelete = (state, action) => {
 
 const handleResolveDelete = (state, action) => {
   const { postId, commentId } = action;
-  const commentIds = state.postIdMap[postId].comments;
+  //const commentIds = state.postIdMap[postId].comments;
   return {
     ...state,
     comments: _.omit(state.comments, commentId),

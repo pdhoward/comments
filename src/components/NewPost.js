@@ -5,8 +5,7 @@ import { connect } 									from 'react-redux';
 import serializeForm      					from 'form-serialize'
 import {Button, FormControl,
 				FormGroup, ControlLabel,
-				Col, InputGroup, DropdownButton,
-				MenuItem, HelpBlock, Form} 	from 'react-bootstrap';
+				Col, HelpBlock, Form} 			from 'react-bootstrap';
 import '../styles/CommentInput.css';
 
 class NewPost extends Component {
@@ -36,7 +35,7 @@ class NewPost extends Component {
 // to do - validation routine dynamically tied to categories registered to server
  getValidationCat() {
 	const entry = this.props.category;
-	if (entry == 'redux' || entry == 'react' || entry == 'udacity') return 'success';
+	if (entry === 'redux' || entry === 'react' || entry === 'udacity') return 'success';
 
 }
 

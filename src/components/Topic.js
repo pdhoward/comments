@@ -1,9 +1,7 @@
 
 
 import React, {Component} 			from 'react';
-import API											from '../api'
 import { connect } 							from 'react-redux';
-import PropTypes 								from 'prop-types';
 import TopicLine   							from './TopicLine';
 import PostTopicContainer   		from './PostTopicContainer';
 import { getAllPosts } 					from '../store/postStore';

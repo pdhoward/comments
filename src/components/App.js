@@ -6,7 +6,7 @@
 import React, {Component}         from 'react';
 import { Provider }               from 'react-redux';
 import { BrowserRouter, Route }		from 'react-router-dom';
-import API, { initializeAPI }     from '../api';
+import { initializeAPI }          from '../api';
 import { initializeStore }        from '../store';
 import Main 								 			from './Main';
 import Category 									from './Category';

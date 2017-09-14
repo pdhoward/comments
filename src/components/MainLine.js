@@ -5,7 +5,6 @@
 
 import React, {Component} 		from 'react';
 import { connect } 						from 'react-redux';
-import sortBy                 from 'sort-by'
 import PostMain 							from './PostMain';
 import NewPost								from './NewPost';
 import PropTypes 							from 'prop-types';

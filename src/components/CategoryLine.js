@@ -2,8 +2,6 @@
 
 import React, {Component} 		from 'react';
 import { connect } 						from 'react-redux';
-import sortBy                 from 'sort-by'
-import API										from '../api'
 import PostCategory						from './PostCategory';
 import PropTypes 							from 'prop-types';
 import PostCategoryContainer	from './PostCategoryContainer';

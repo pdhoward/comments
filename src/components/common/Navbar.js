@@ -1,7 +1,6 @@
 import React, { Component }                 from "react";
 import {Nav, NavItem,
         NavDropdown, MenuItem} 							from 'react-bootstrap';
-import { Link }                             from "react-router-dom";
 import API										              from '../../api'
 
 class Navbar extends Component {
@@ -12,7 +11,7 @@ class Navbar extends Component {
 			categories: []
 		}
     this.renderCategoryMenu =    this.renderCategoryMenu.bind(this)
-    this.getCategories =         this.getCategories.bind(this)    
+    this.getCategories =         this.getCategories.bind(this)
 	}
 
   getCategories = (cb) => {

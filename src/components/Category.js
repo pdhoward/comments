@@ -2,14 +2,10 @@
 
 import React, {Component} 		from 'react';
 import { connect } 						from 'react-redux';
-import API										from '../api'
 import CategoryLine						from './CategoryLine';
 import PostCategoryContainer	from './PostCategoryContainer';
 import { getAllPosts }   			from '../store/postStore';
-import {Row, Col,
-				SplitButton,
-				MenuItem} 						from 'react-bootstrap';
-import _ from 'lodash';
+import {Row, Col }						from 'react-bootstrap';
 
 class Category extends Component {
 
