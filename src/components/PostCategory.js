@@ -45,7 +45,7 @@ PropTypes.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.id || ownProps.match.params.postId;
   return {
-    id: '',
+    id: id,
     post: state.post.posts[id],
     delete: state.post.delete,
 //    isDetailView: ownProps.match.params.postId
