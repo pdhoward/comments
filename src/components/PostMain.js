@@ -42,8 +42,8 @@ PostMain.propTypes = {
 	category: PropTypes.string.isRequired,
 	votescore: PropTypes.number.isRequired,
 	timestamp: PropTypes.number.isRequired,
-	id: PropTypes.number.isRequired,
-	deleted: PropTypes.boolean.isRequired,
+	//id: PropTypes.number.isRequired,
+	//deleted: PropTypes.boolean.isRequired,
 };
 
 PropTypes.defaultProps = {
@@ -53,7 +53,7 @@ PropTypes.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.id || ownProps.match.params.postId;
   return {
-    id,
+    id: '',
     post: state.post.posts[id],
     delete: state.post.delete,
     isDetailView: ownProps.match.params.postId
