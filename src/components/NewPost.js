@@ -23,10 +23,14 @@ class NewPost extends Component {
 		}
 
 	getValidationState() {
-	 const length = this.props.post.length;
-	 if (length > 20) return 'success';
-	 else if (length > 10) return 'warning';
-	 else if (length > 0) return 'error';
+		console.log("DEBUG NEWPOST")
+		console.log(this.props)
+		if (this.props.post) {
+	 		const length = this.props.post.length;
+	 		if (length > 20) return 'success';
+	 			else if (length > 10) return 'warning';
+	 			else if (length > 0) return 'error';
+ 		}
  }
 
 // to do - validation routine dynamically tied to categories registered to server

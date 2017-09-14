@@ -34,18 +34,23 @@ class Main extends Component {
 		console.log("BUTTON CLICKED")
 	 }
 
-	componentDidMount() {
+	componentWillMount() {
      this.props.dispatch(getAllPosts());
    }
 
 	renderPosts = () => {
-		let showingPosts = this.props.params.category
+		console.log("DEBUG MAIN")
+		console.log(this.props)
 
-		return showingPosts.map(post => (
-			<PostMain key={post.id} id={post.id} title={post.title}
+		if (this.props.match.params.category) {
+				let showingPosts = this.props.match.params.category
+
+				return showingPosts.map(post => (
+					<PostMain key={post.id} id={post.id} title={post.title}
 				        author={post.author} votescore={post.voteScore} category={post.category}
 								deleted={post.deleted} timestamp={post.timestamp} />
-	))
+						))
+					}
 }
 
 	render() {
