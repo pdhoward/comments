@@ -3,6 +3,10 @@ import React, {Component} 					from 'react';
 import PropTypes 										from 'prop-types';
 import { connect } 									from 'react-redux';
 import serializeForm      					from 'form-serialize'
+import {
+  			closeForm, submitForm,
+				formChange, discardForm
+			}   													from '../store/postFormStore';
 import {Button, FormControl,
 				FormGroup, ControlLabel,
 				Col, HelpBlock, Form} 			from 'react-bootstrap';
@@ -10,22 +14,26 @@ import '../styles/CommentInput.css';
 
 class NewPost extends Component {
 
+
 		styles = { maxWidth: '500px',
 							 margin: '0 auto' }
 
-	handleSubmit(e) {
+	handleSubmit = (e) => {
+		console.log("ENTERED HANDLESUBMIT")
 		e.preventDefault();
 		const values = serializeForm(e.target, {hash: true})
+		this.props.onSubmitPost(values)
+	}
 
-		if (this.props.onSubmitPost)
-				this.props.onSubmitPost(values)
-		}
+	handleChange = (e, { name, value }) => {
+    this.props.dispatch(formChange(name, value));
+  	}
 
 	getValidationState() {
-		console.log("DEBUG NEWPOST")
+		console.log("DEBUG NEWPOST VALIDATION")
 		console.log(this.props)
-		if (this.props.post) {
-	 		const length = this.props.post.length;
+		if (this.props.body) {
+	 		const length = this.props.body.length;
 	 		if (length > 20) return 'success';
 	 			else if (length > 10) return 'warning';
 	 			else if (length > 0) return 'error';
@@ -38,7 +46,7 @@ class NewPost extends Component {
 	if (entry === 'redux' || entry === 'react' || entry === 'udacity') return 'success';
 
 }
-
+/*
  handleChangeCategory(e) {
  	this.setState({ category: e.target.value });
  }
@@ -53,6 +61,13 @@ class NewPost extends Component {
  handleChangeAuthor(e) {
 	 this.setState({ author: e.target.value });
  }
+*/
+ //handleChange = (e, { name, value }) => {
+ 	handleChange = (e) => {
+		console.log("DEBUG NEWPOST")
+		console.log(e)
+    this.props.dispatch(formChange(e.target.name, e.target.value));
+  }
 
 
  render() {
@@ -72,7 +87,7 @@ class NewPost extends Component {
 							 name="category"
 							 placeholder="Enter Category"
 							 value={this.props.category}
-							 onChange={this.handleChangeCategory}
+							 onChange={this.handleChange}
 							 />
 			 			</Col>
 						<FormControl.Feedback />
@@ -89,7 +104,7 @@ class NewPost extends Component {
 						 name="title"
 	 					 value={this.props.title}
 	 					 placeholder="Enter Post Title"
-	 					 onChange={this.handleChangeTitle}
+	 					 onChange={this.handleChange}
 	 				 />
 		 			</Col>
 	 			</FormGroup>
@@ -102,9 +117,9 @@ class NewPost extends Component {
 						<FormControl
 	 					 type="text"
 						 name="body"
-	 					 value={this.props.post}
+	 					 value={this.props.body}
 	 					 placeholder="Enter Post Content"
-	 					 onChange={this.handleChangePost}
+	 					 onChange={this.handleChange}
 	 				 />
 		 			</Col>
 					<FormControl.Feedback />
@@ -121,7 +136,7 @@ class NewPost extends Component {
 						 name="author"
 	 					 value={this.props.author}
 	 					 placeholder="Enter Author Name"
-	 					 onChange={this.handleChangeAuthor}
+	 					 onChange={this.handleChange}
 	 				 />
 		 			</Col>
 	 			</FormGroup>

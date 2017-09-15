@@ -7,6 +7,7 @@ import React, {Component} 		from 'react';
 import { connect } 						from 'react-redux';
 import PropTypes 							from 'prop-types';
 import PostTopicComments    	from './PostTopicComments';
+import PostTopicContainer   	from './PostTopicContainer';
 import {Row, Col} 						from 'react-bootstrap';
 
 class TopicLineComments extends Component {
@@ -34,11 +35,13 @@ class TopicLineComments extends Component {
 		return(
 			<Row>
 				<Col xs={0} sm={1} md={3} />
-				<Col xs={12} sm={10} md={6}>
+
 					<div className="Main">
+						<PostTopicContainer>
 							{this.renderComments()}
+						</PostTopicContainer>
 					</div>
-				</Col>
+				
 				<Col xs={0} sm={1} md={3} />
 			</Row>
 		);

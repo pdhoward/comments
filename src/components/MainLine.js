@@ -6,7 +6,6 @@
 import React, {Component} 		from 'react';
 import { connect } 						from 'react-redux';
 import PostMain 							from './PostMain';
-import NewPost								from './NewPost';
 import PropTypes 							from 'prop-types';
 import PostMainContainer 			from './PostMainContainer';
 import {Link} 							  from 'react-router-dom';
@@ -57,7 +56,7 @@ class MainLine extends Component {
 							{this.renderPosts()}
 						</PostMainContainer>
 					</div>
-						<NewPost />
+
 				</Col>
 
 					<div style={this.styles}>

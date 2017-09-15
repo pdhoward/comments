@@ -9,7 +9,6 @@ import PropTypes 							from 'prop-types';
 import PostTopic  						from './PostTopic';
 import TopicCommentLine 			from './TopicCommentLine';
 import PostTopicContainer   	from './PostTopicContainer';
-import PostTopicComments    	from './PostTopicComments';
 import { getCommentsForPost } from '../store/commentStore';
 import {Row, Col} 						from 'react-bootstrap';
 
@@ -42,14 +41,14 @@ renderPost = () => {
 		return(
 			<Row>
 				<Col xs={0} sm={1} md={3} />
-				<Col xs={12} sm={10} md={6}>
+
 					<div className="Main">
 						<PostTopicContainer>
 							{this.renderPost()}
 							<TopicCommentLine />
 						</PostTopicContainer>
 					</div>
-				</Col>
+
 				<Col xs={0} sm={1} md={3} />
 			</Row>
 		);
