@@ -17,7 +17,10 @@ Comments are stored in browser local storage.
 
 ### Start server
 
-a separate test server is bundled with the app. In the root of the server directory, > node server
+A test server is bundled with the app. 
+In the root of the server directory,
+  1. npm install
+  2. node server
 
 I would like to acknowledge that I found an open source project that served as an example for me to learn from
 in managing redux store. I used it s as model, borrowed and refactored code, but integrated it with my own
