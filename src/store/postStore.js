@@ -104,7 +104,7 @@ export const intentDeletePost = (postId) => {
   return { type: actions.INTENT_DELETE, postId };
 };
 
-export const confirmDeletePost = (postId, redirect) => {
+export const deletePost = (postId, redirect) => {
   return (dispatch, getState) => {
     postId = postId || getState().post.delete.id;
     dispatch({ type: actions.PROMISE_DELETE, postId });

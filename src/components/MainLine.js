@@ -15,6 +15,7 @@ import {Row, Col, Button,
 
 class MainLine extends Component {
 
+
 		styles = { maxWidth: '2000px',
 								 		margin: '0',
 										position: 'fixed',
@@ -30,6 +31,7 @@ class MainLine extends Component {
 		console.log("BUTTON CLICKED")
 	 }
 
+
 	renderPosts = () => {
 		console.log("DEBUG MAINLINE")
 		console.log(this.props)
@@ -37,6 +39,7 @@ class MainLine extends Component {
 				let showingPosts = this.props.posts.slice()
 
 				return showingPosts.map(post => (
+
 					<PostMain key={post.id} id={post.id} title={post.title}
 				        author={post.author} votescore={post.voteScore} category={post.category}
 								deleted={post.deleted} timestamp={post.timestamp} />

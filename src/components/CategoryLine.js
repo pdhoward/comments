@@ -17,13 +17,6 @@ class CategoryLine extends Component {
 							top: '500px',
 							left: '50px' }
 
-
-	handleSelect(eventKey, event) {
-		event.preventDefault();
-		console.log("something needs to happen")
-
-	}
-
 	renderPosts = () => {
 		console.log("DEBUG CATEGORY LINE")
 		console.log(this.props)
@@ -54,15 +47,7 @@ class CategoryLine extends Component {
 				</Col>
 				<Col xs={0} sm={1} md={3} />
 
-			<div style={this.styles2}>
-				<SplitButton bsStyle={'success'} bsSize="large" title={'sort by'} key='0'
-										 id={'basic-sort-dropdown'} onSelect={this.handleSelect}>
-						<MenuItem eventKey="1">vote asc</MenuItem>
-						<MenuItem eventKey="2">vote dec</MenuItem>
-						<MenuItem eventKey="3">date asc</MenuItem>
-						<MenuItem eventKey="4">date dec</MenuItem>
-					</SplitButton>
-			</div>
+
 		</Row>
 		);
 	}
