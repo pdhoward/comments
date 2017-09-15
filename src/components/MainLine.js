@@ -27,9 +27,6 @@ class MainLine extends Component {
 									  top: '500px',
 										left: '50px' }
 
-	handleSelect() {
-		console.log("BUTTON CLICKED")
-	 }
 
 
 	renderPosts = () => {

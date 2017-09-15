@@ -12,14 +12,15 @@ import {Button, FormControl,
 				Col, HelpBlock, Form} 			from 'react-bootstrap';
 import '../styles/CommentInput.css';
 
-class NewPost extends Component {
+class NewComment extends Component {
 
 
 		styles = { maxWidth: '500px',
 							 margin: '0 auto' }
 
 	handleSubmit = (e) => {
-		console.log("ENTERED HANDLESUBMIT")
+		console.log("ENTERED HANDLE SUBMIT")    
+    console.log(this.props)
 		e.preventDefault();
 		const values = serializeForm(e.target, {hash: true})
 		this.props.onSubmitPost(values)
@@ -40,16 +41,8 @@ class NewPost extends Component {
  		}
  }
 
-// to do - validation routine dynamically tied to categories registered to server
- getValidationCat() {
-	const entry = this.props.category;
-	if (entry === 'redux' || entry === 'react' || entry === 'udacity') return 'success';
-
-}
-
  	handleChange = (e) => {
-		console.log("DEBUG NEWPOST")
-		console.log(e)
+
     this.props.dispatch(formChange(e.target.name, e.target.value));
   }
 
@@ -59,55 +52,23 @@ class NewPost extends Component {
 			 <div style={this.styles}>
 		<form onSubmit={this.handleSubmit}>
 			<Form horizontal>
-				<h1>Enter a New Post</h1>
-
-					<FormGroup controlId="formBasic" validationState={this.getValidationCat()}>
-			 			<Col componentClass={ControlLabel} sm={2}>
-				 			Category
-			 			</Col>
-			 			<Col style={{maxWidth: '500px'}} sm={10}>
-							<FormControl
-							 type="text"
-							 name="category"
-							 placeholder="Enter Category"
-							 value={this.props.category}
-							 onChange={this.handleChange}
-							 />
-			 			</Col>
-						<FormControl.Feedback />
-						 <HelpBlock>Valid categories react, redux, udacity</HelpBlock>
-		 			</FormGroup>
-
-				<FormGroup controlId="formBasic">
-		 			<Col componentClass={ControlLabel} sm={2}>
-			 			Title
-		 			</Col>
-		 			<Col style={{maxWidth: '500px'}} sm={10}>
-						<FormControl
-	 					 type="text"
-						 name="title"
-	 					 value={this.props.title}
-	 					 placeholder="Enter Post Title"
-	 					 onChange={this.handleChange}
-	 				 />
-		 			</Col>
-	 			</FormGroup>
+				<h3>Enter a New Comment</h3>
 
 				<FormGroup controlId="formBasic" validationState={this.getValidationState()} >
 		 			<Col componentClass={ControlLabel} sm={2}>
-			 			Content
+			 			Comment
 		 			</Col>
 		 			<Col style={{maxWidth: '500px'}} sm={10}>
 						<FormControl
 	 					 type="text"
 						 name="body"
 	 					 value={this.props.body}
-	 					 placeholder="Enter Post Content"
+	 					 placeholder="Enter Comment"
 	 					 onChange={this.handleChange}
 	 				 />
 		 			</Col>
 					<FormControl.Feedback />
-					 <HelpBlock>A post needs to be at least 20 characters</HelpBlock>
+					 <HelpBlock>A comment needs to be at least 20 characters</HelpBlock>
 	 			</FormGroup>
 
 				<FormGroup controlId="formBasic">
@@ -132,7 +93,7 @@ class NewPost extends Component {
 	}
 };
 
-NewPost.propTypes = {
+NewComment.propTypes = {
   submitDisabled: PropTypes.bool,
   visible: PropTypes.bool,
   submitting: PropTypes.bool,
@@ -145,7 +106,7 @@ NewPost.propTypes = {
   formType: PropTypes.oneOf(['new', 'edit'])
 };
 
-NewPost.defaultProps = {
+NewComment.defaultProps = {
   submitDisabled: true,
   visible: false,
   submitting: false,
@@ -177,4 +138,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps)(NewPost);
+export default connect(mapStateToProps)(NewComment);

@@ -13,6 +13,7 @@ import Main 								 			from './Main';
 import Category 									from './Category';
 import Topic           		 			  from './Topic';
 import NewPost                    from './NewPost'
+import NewComment                 from './NewComment'
 import Navbar                     from './common/Navbar'
 import Footer                     from './common/Footer'
 import '../styles/App.css';
@@ -29,6 +30,12 @@ class App extends Component {
   handleSubmit = (data) => {
     API.createNewPost(data).then(function(response){
       console.log("posted update to db")
+    })
+  }
+
+  handleSubmitComment = (data) => {
+    API.createNewComment(data).then(function(response){
+      console.log("posted comment")
     })
   }
 
@@ -51,7 +58,14 @@ class App extends Component {
                       }}
                     />
                 )} />
-
+              <Route exact path="/newcomment" render={({history}) => (
+                  <NewComment
+                      onSubmitPost={ (data) => {
+                        this.handleSubmitComment(data)
+                        history.push('/')
+                        }}
+                      />
+                  )} />
               <Footer />
             </div>
           </div>

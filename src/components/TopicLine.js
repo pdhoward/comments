@@ -9,10 +9,25 @@ import PropTypes 							from 'prop-types';
 import PostTopic  						from './PostTopic';
 import TopicCommentLine 			from './TopicCommentLine';
 import PostTopicContainer   	from './PostTopicContainer';
+import {Link} 							  from 'react-router-dom';
 import { getCommentsForPost } from '../store/commentStore';
-import {Row, Col} 						from 'react-bootstrap';
+import {Row, Col, Button,
+				SplitButton,
+				MenuItem } 						from 'react-bootstrap';
 
 class TopicLine extends Component {
+
+	styles = { maxWidth: '2000px',
+									margin: '0',
+									position: 'fixed',
+									top: '150px',
+									left: '50px' }
+	styles2 = { maxWidth: '2000px',
+									margin: '0',
+									position: 'fixed',
+									top: '500px',
+									left: '50px' }
+
 
 renderPost = () => {
 	console.log("DEBUG Render Post")
@@ -48,7 +63,11 @@ renderPost = () => {
 							<TopicCommentLine />
 						</PostTopicContainer>
 					</div>
-
+					<div style={this.styles}>
+							<Link className='newpost' to={'/newcomment/'}>
+								<Button bsStyle="primary" bsSize="large">New Comment</Button>
+							</Link>
+					</div>
 				<Col xs={0} sm={1} md={3} />
 			</Row>
 		);
