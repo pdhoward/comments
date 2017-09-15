@@ -29,7 +29,7 @@ class PostMain extends Component {
     		clear: "both"
 			}
 		};
-//upVotePost
+
 		 upVote = () => {
 			 console.log("DEBUG UPVOTE")
 			 console.log(this.props)
