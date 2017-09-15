@@ -30,14 +30,14 @@ class CategoryLine extends Component {
 		if (Array.isArray(this.props.posts)) {
 				let showingPosts = this.props.posts.slice()
 
-		return showingPosts.filter(post => (post.category === this.props.category))
+				return showingPosts.filter(post => (post.category === this.props.category))
 												.map(post => (
 													<PostCategory key={post.id} id={post.id} title={post.title}
 				        						author={post.author} votescore={post.voteScore} category={post.category}
 														deleted={post.deleted} timestamp={post.timestamp} />
-									))
-								}
-						}
+						))
+					}
+			}
 //
 
 	render() {

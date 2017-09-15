@@ -7,39 +7,34 @@ import React, {Component} 		from 'react';
 import { connect } 						from 'react-redux';
 import PropTypes 							from 'prop-types';
 import PostTopic  						from './PostTopic';
+import TopicCommentLine 			from './TopicCommentLine';
 import PostTopicContainer   	from './PostTopicContainer';
 import PostTopicComments    	from './PostTopicComments';
+import { getCommentsForPost } from '../store/commentStore';
 import {Row, Col} 						from 'react-bootstrap';
 
 class TopicLine extends Component {
 
-	renderComments = () => {
-		console.log("DEBUG TOPIC COMMENTS")
-		console.log(this.props)
-		if (this.props.comments){
-		return this.props.comments.map(comment => (
-			<PostTopicComments key={this.props.comment.id} id={this.props.comment.id} body={this.props.comment.body}
-				        author={this.props.comment.author} votescore={this.props.comment.voteScore}
-								parentID={this.props.comment.parentID}
-								deleted={this.props.comment.deleted} parentDeleted={this.props.comment.parentDeleted}
-								timestamp={this.props.comment.timestamp} />
-	))
-}
-}
-
 renderPost = () => {
 	console.log("DEBUG Render Post")
 	console.log(this.props)
-	if (this.props.post){
-	return
-		<PostTopic key={this.props.post.id} id={this.props.post.id}
-							title={this.props.post.title} body={this.props.post.body}
-							author={this.props.post.author} votescore={this.props.post.voteScore}
-							category={this.props.post.category}
-							deleted={this.props.post.deleted} timestamp={this.props.post.timestamp} />
 
-		}
+	if (Array.isArray(this.props.posts)) {
+			let showingPosts = this.props.posts.slice()
+
+			return showingPosts.map(post => (
+			<PostTopic key={post.id} id={post.id}
+								title={post.title} body={post.body}
+								author={post.author} votescore={post.voteScore}
+								category={post.category}
+								deleted={post.deleted} timestamp={post.timestamp} />
+						))
+				}
   }
+
+	componentDidMount() {
+				this.props.dispatch(getCommentsForPost(this.props.topic))
+	}
 
 	render() {
 		console.log("DEBUG TOPIC LINE PROPS")
@@ -51,7 +46,7 @@ renderPost = () => {
 					<div className="Main">
 						<PostTopicContainer>
 							{this.renderPost()}
-							{this.renderComments()}
+							<TopicCommentLine />
 						</PostTopicContainer>
 					</div>
 				</Col>
@@ -76,36 +71,25 @@ TopicLine.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
 
 	console.log("Entered map state to props in TOPIC LINE")
-	console.log(state)
-  const { category } = ownProps;
+  const { topic } = ownProps;
   const { sortBy, sortOrder } = state.post;
+	console.log(state)
 	let posts = []
 
 	Object.keys(state.post.posts).forEach(function(key) {
 			 posts.push(state.post.posts[key])
 	 });
 
-	 const { post } = state.post
-   return { post };
+	 if (topic) {
+	 	posts = posts.filter(post => post.id === topic);
+	 }
+   return { posts };
 
-	 const { comments } = state.comments
+	 const { comments } = state.comment.comments
    return { comments };
 
-  //if (_.isString(category)) {
-  //  posts = _.values(posts).filter(post => post.category === category);
-  //}
-	if (category) {
-    posts = posts.filter(post => post.category === category);
-  }
-
-  posts = posts.sort((a, b) => {
-    const temp = a[sortBy] - b[sortBy];
-    const modifier = sortOrder === 'asc' ? 1 : -1;
-    return  temp * modifier;
-  });
-
-  const { loading, error } = state.post.posts;
-  return { loading, error, posts };
+   const { loading, error } = state.post.posts;
+   return { loading, error };
 };
 
 export default connect(mapStateToProps)(TopicLine);

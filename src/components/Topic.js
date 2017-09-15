@@ -5,14 +5,12 @@ import { connect } 							from 'react-redux';
 import TopicLine   							from './TopicLine';
 import PostTopicContainer   		from './PostTopicContainer';
 import { getAllPosts } 					from '../store/postStore';
-import { getCommentsForPost } 	from '../store/commentStore';
 import {Row, Col} 							from 'react-bootstrap';
 
 class Topic extends Component {
 
 	componentDidMount() {
 				this.props.dispatch(getAllPosts());
-				this.props.dispatch(getCommentsForPost(this.props.match.params.id))
 	}
 
 	render() {
