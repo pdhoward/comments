@@ -10,7 +10,8 @@ import {Row, Col, Button,
 				SplitButton,
 				MenuItem } 						from 'react-bootstrap';
 import PostMainContainer 			from './PostMainContainer';
-import { getAllPosts } 				from '../store/postStore';
+import { getAllPosts,
+ 				 sortPosts  } 				from '../store/postStore';
 import MainLine 							from './MainLine';
 
 
@@ -26,6 +27,29 @@ class Main extends Component {
 										position: 'fixed',
 									  top: '500px',
 										left: '50px' }
+
+	//sortBy: ['voteScore', 'timestamp'][0],
+	//sortOrder: ['asc', 'desc'][1],
+		handleSelect = (e) => {
+			console.log("MAIN SORT")
+			console.log(e)
+			switch (e) {
+  			case '1':
+    			this.props.dispatch(sortPosts('voteScore', 'asc'));
+    			break;
+			  case '2':
+	    		this.props.dispatch(sortPosts('voteScore', 'desc'));
+	    		break;
+			 case '3':
+			 		this.props.dispatch(sortPosts('timestamp', 'asc'));
+			 		break;
+			case '4':
+					this.props.dispatch(sortPosts('timestamp', 'desc'));
+					break;
+			default:
+	    		console.log('ERROR ON MAIN SORT');
+		}
+	}
 
 		componentDidMount() {
 					this.props.dispatch(getAllPosts());
