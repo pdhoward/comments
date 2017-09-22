@@ -19,10 +19,11 @@ class NewComment extends Component {
 							 margin: '0 auto' }
 
 	handleSubmit = (e) => {
-		console.log("ENTERED HANDLE SUBMIT")    
+		console.log("ENTERED HANDLE NewComment SUBMIT")
     console.log(this.props)
 		e.preventDefault();
 		const values = serializeForm(e.target, {hash: true})
+    console.log(values)
 		this.props.onSubmitPost(values)
 	}
 
