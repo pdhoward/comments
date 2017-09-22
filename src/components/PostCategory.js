@@ -77,7 +77,7 @@ class PostCategory extends Component {
 						/>
 					</div>
 
-				<Link className='title' to={'/topic/' + this.props.id}>
+				<Link className='title' to={'/category/' + this.props.category + '/' + this.props.id}>
 					<div style={this.styles3.clearfix} >
 						<h3>{this.props.title}</h3>
 						<section>{this.props.author}</section>
