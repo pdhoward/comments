@@ -58,7 +58,7 @@ class App extends Component {
                       }}
                     />
                 )} />
-              <Route exact path="/newcomment" render={({history}) => (
+              <Route exact path="/newcomment/:id" render={({history}) => (
                   <NewComment
                       onSubmitPost={ (data) => {
                         this.handleSubmitComment(data)

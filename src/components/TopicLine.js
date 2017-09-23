@@ -6,6 +6,8 @@
 import React, {Component} 		from 'react';
 import { connect } 						from 'react-redux';
 import PropTypes 							from 'prop-types';
+import API                    from '../api';
+import NewComment             from './NewComment'
 import PostTopic  						from './PostTopic';
 import TopicCommentLine 			from './TopicCommentLine';
 import PostTopicContainer   	from './PostTopicContainer';
@@ -16,6 +18,13 @@ import {Row, Col, Button,
 				MenuItem } 						from 'react-bootstrap';
 
 class TopicLine extends Component {
+	constructor(props) {
+		super(props);
+		this.state={
+			showComponent: false
+		}
+		 this.handleSubmitComment = this.handleSubmitComment.bind(this);
+	}
 
 	styles = { maxWidth: '2000px',
 									margin: '0',
@@ -28,6 +37,19 @@ class TopicLine extends Component {
 									top: '500px',
 									left: '50px' }
 
+handleSubmitComment = (data) => {
+		this.setState({showComponent: false})
+		let that = this
+		API.createNewComment(data).then(function(response){
+					console.log("posted comment")
+					that.props.dispatch(getCommentsForPost(that.props.topic))			
+
+	})
+}
+
+handleClick = () => {
+	this.setState({showComponent: true})
+}
 
 renderPost = () => {
 	console.log("DEBUG Render Post")
@@ -64,9 +86,15 @@ renderPost = () => {
 						</PostTopicContainer>
 					</div>
 					<div style={this.styles}>
-							<Link className='newpost' to={'/newcomment/'}>
-								<Button bsStyle="primary" bsSize="large">New Comment</Button>
-							</Link>
+						<Button bsStyle="primary" bsSize="large" onClick={this.handleClick}>New Comment</Button>
+						{this.state.showComponent ?
+							<NewComment
+									postid ={this.props.topic}
+									onSubmitPost={ (data) => {
+										this.handleSubmitComment(data)
+										}}
+									/> :
+						   null }
 					</div>
 				<Col xs={0} sm={1} md={3} />
 			</Row>
@@ -92,6 +120,7 @@ const mapStateToProps = (state, ownProps) => {
   const { topic } = ownProps;
   const { sortBy, sortOrder } = state.post;
 	console.log(state)
+	console.log("TOPIC = " + topic)
 	let posts = []
 
 	Object.keys(state.post.posts).forEach(function(key) {
@@ -100,8 +129,9 @@ const mapStateToProps = (state, ownProps) => {
 
 	 if (topic) {
 	 	posts = posts.filter(post => post.id === topic);
+		return { posts };
 	 }
-   return { posts };
+
 
 	 const { comments } = state.comment.comments
    return { comments };

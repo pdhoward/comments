@@ -23,13 +23,15 @@ class NewComment extends Component {
     console.log(this.props)
 		e.preventDefault();
 		const values = serializeForm(e.target, {hash: true})
+    values.parentId = this.props.postid
     console.log(values)
-		this.props.onSubmitPost(values)
+		this.props.onSubmitPost(values)  
+
 	}
 
-	handleChange = (e, { name, value }) => {
-    this.props.dispatch(formChange(name, value));
-  	}
+	//handleChange = (e, { name, value }) => {
+  //  this.props.dispatch(formChange(name, value));
+  //	}
 
 	getValidationState() {
 		console.log("DEBUG NEWPOST VALIDATION")
@@ -49,6 +51,8 @@ class NewComment extends Component {
 
 
  render() {
+   console.log("DEBUG NEW comments")
+   console.log(this.props)
 		 return (
 			 <div style={this.styles}>
 		<form onSubmit={this.handleSubmit}>
