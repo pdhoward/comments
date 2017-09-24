@@ -6,14 +6,25 @@
 import React, {Component} 		from 'react';
 import { connect } 						from 'react-redux';
 import PropTypes 							from 'prop-types';
+import API                    from '../api';
 import PostTopicComments    	from './PostTopicComments';
 import PostTopicContainer   	from './PostTopicContainer';
+import EditPost               from './EditComment'
 import {Row, Col, Panel} 			from 'react-bootstrap';
 import { upVoteComment,
  				 downVoteComment,
-			   deleteComment } 			from '../store/commentStore';
+			   deleteComment,
+         getCommentsForPost}  from '../store/commentStore';
 
 class TopicLineComments extends Component {
+  constructor(props) {
+		super(props);
+		this.state={
+			showComponent: false
+
+		}
+		 this.handleUpdateComment = this.handleUpdateComment.bind(this);
+	}
 
 	styles = { maxWidth: '2000px',
 									margin: '0',
@@ -54,24 +65,33 @@ downVote = (id) => {
 	this.props.dispatch(downVoteComment(id));
 }
 edit = (id) => {
-	console.log("EDIT")
+	this.setState({showComponent: true})
 }
 delete = (id) => {
  this.props.dispatch(deleteComment(id));
 }
 
+handleUpdateComment = (data) => {
+		this.setState({showComponent: false})
+		let that = this
+		API.editComment(data).then(function(response){
+					console.log("edit comments")
+          console.log(data)
+					that.props.dispatch(getCommentsForPost(data.parentID))
 
+	})
+}
 
 
 	renderComments = () => {
-		console.log("DEBUG TOPICCommentLine RENDERCOMMENTS")
+		console.log("DEBUG TOPIC CommentLine RENDERCOMMENTS")
 		console.log(this.props)
 
 		if (Array.isArray(this.props.comments)) {
 				let showingComments = this.props.comments.slice()
 
 		  return showingComments.map(comment => (
-
+      <div>
 				<Panel className="PostPreview" >
 					<div style={this.styles3.favoriteStyle}>
 					<i
@@ -101,10 +121,22 @@ delete = (id) => {
 					</div>
 
 			 		<PostTopicComments key={comment.id} id={comment.id} body={comment.body}
-				        author={comment.author} votescore={comment.voteScore} parentID={comment.parentID}
+				        author={comment.author} votescore={comment.voteScore} parentID={comment.parentId}
 								deleted={comment.deleted} parentDeleted={comment.parentDeleted}
 								timestamp={comment.timestamp} />
 			</Panel>
+      <div>
+        {this.state.showComponent ?
+          <EditPost
+            parentID={comment.parentId}
+            id={comment.id}
+            onSubmitPost={ (data) => {
+              this.handleUpdateComment(data)
+              }}
+            /> :
+         null }
+      </div>
+    </div>
 	 ))
  }
 }
