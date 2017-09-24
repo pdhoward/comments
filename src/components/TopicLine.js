@@ -15,7 +15,10 @@ import {Link} 							  from 'react-router-dom';
 import { getCommentsForPost } from '../store/commentStore';
 import {Row, Col, Button,
 				SplitButton,
-				MenuItem } 						from 'react-bootstrap';
+				MenuItem, Panel } 		from 'react-bootstrap';
+import { upVotePost,
+ 				 downVotePost,
+			   deletePost } 				from '../store/postStore';
 
 class TopicLine extends Component {
 	constructor(props) {
@@ -36,13 +39,52 @@ class TopicLine extends Component {
 									position: 'fixed',
 									top: '500px',
 									left: '50px' }
+	 //
+	 styles3 = {
+ 			favoriteStyle: {
+ 			cursor: "pointer",
+ 			marginRight: 5,
+ 			marginTop: 10,
+ 			float: "left"
+
+ 		},
+ 		deleteStyle: {
+ 			cursor: "pointer",
+ 			marginLeft: 5,
+ 			color: "red",
+ 			float: "right"
+ 		},
+ 		clearfix: {
+ 			clear: "both"
+ 		}
+ 	};
+
+
+upVote = () => {
+	console.log("DEBUG UPVOTE")
+	console.log(this.props)
+	this.props.dispatch(upVotePost(this.props.topic));
+}
+downVote = () => {
+	this.props.dispatch(downVotePost(this.props.topic));
+}
+edit = () => {
+	console.log("EDIT")
+}
+delete = () => {
+ this.props.dispatch(deletePost(this.props.topic));
+}
+//
+
+
+
 
 handleSubmitComment = (data) => {
 		this.setState({showComponent: false})
 		let that = this
 		API.createNewComment(data).then(function(response){
 					console.log("posted comment")
-					that.props.dispatch(getCommentsForPost(that.props.topic))			
+					that.props.dispatch(getCommentsForPost(that.props.topic))
 
 	})
 }
@@ -59,11 +101,42 @@ renderPost = () => {
 			let showingPosts = this.props.posts.slice()
 
 			return showingPosts.map(post => (
-			<PostTopic key={post.id} id={post.id}
+
+				<Panel className="PostPreview" header={post.category}>
+					<div style={this.styles3.favoriteStyle}>
+					<i
+						onClick={() => this.upVote(this.props)}
+						style={this.styles3.favoriteStyle}
+						className={"fa fa-thumbs-o-up fa-2x"}
+						aria-hidden="true"
+						/>
+						<i
+							onClick={() => this.downVote(this.props)}
+							style={this.styles3.favoriteStyle}
+							className={"fa fa-thumbs-o-down fa-2x"}
+							aria-hidden="true"
+							/>
+						<i
+							onClick={() => this.edit(this.props)}
+							style={this.styles3.favoriteStyle}
+							className={"fa fa-pencil fa-2x"}
+							aria-hidden="true"
+						/>
+					<i
+						onClick={() => this.delete(this.props)}
+						style={this.styles3.deleteStyle}
+						className="fa fa-trash-o fa-2x"
+						aria-hidden="true"
+						/>
+					</div>
+
+					<PostTopic key={post.id} id={post.id}
 								title={post.title} body={post.body}
 								author={post.author} votescore={post.voteScore}
 								category={post.category}
 								deleted={post.deleted} timestamp={post.timestamp} />
+				</Panel>
+
 						))
 				}
   }
