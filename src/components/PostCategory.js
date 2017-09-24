@@ -3,13 +3,25 @@ import { connect } 							from 'react-redux';
 import PropTypes 								from 'prop-types';
 import {Link} 									from 'react-router-dom';
 import {Panel} 									from 'react-bootstrap';
+import API                      from '../api';
+import EditPost                 from './EditPost'
 import { upVotePost,
  				 downVotePost,
-			   deletePost } 				 from '../store/postStore';
+			   deletePost,
+         getAllPosts} 				  from '../store/postStore';
 import '../styles/PostMain.css';
 
 
 class PostCategory extends Component {
+
+  constructor(props) {
+		super(props);
+		this.state={
+			showComponent: false
+		}
+		 this.handleUpdatePost = this.handleUpdatePost.bind(this);
+	}
+
 	styles3 = {
 			favoriteStyle: {
 			cursor: "pointer",
@@ -28,7 +40,16 @@ class PostCategory extends Component {
 			clear: "both"
 		}
 	};
+//
+handleUpdatePost = (data) => {
+		this.setState({showComponent: false})
+		let that = this
+		API.editPost(data).then(function(response){
+					console.log("edit post")
+					that.props.dispatch(getAllPosts())
 
+	})
+}
 
 			 upVote = () => {
 				 console.log("DEBUG UPVOTE")
@@ -39,7 +60,7 @@ class PostCategory extends Component {
 				 this.props.dispatch(downVotePost(this.props.post.id));
 			 }
 			 edit = () => {
-				 console.log("EDIT")
+				 this.setState({showComponent: true})
 			 }
 			 delete = () => {
 				this.props.dispatch(deletePost(this.props.post.id));
@@ -48,7 +69,7 @@ class PostCategory extends Component {
 	render() {
 		let title = this.props.category
 		return(
-
+      <div>
 				<Panel className="PostPreview" header={title}>
 					<div style={this.styles3.favoriteStyle}>
 					<i
@@ -62,13 +83,7 @@ class PostCategory extends Component {
 							style={this.styles3.favoriteStyle}
 							className={"fa fa-thumbs-o-down fa-2x"}
 							aria-hidden="true"
-							/>
-						<i
-							onClick={() => this.edit(this.props)}
-							style={this.styles3.favoriteStyle}
-							className={"fa fa-pencil fa-2x"}
-							aria-hidden="true"
-						/>
+							/>						
 					<i
 						onClick={() => this.delete(this.props)}
 						style={this.styles3.deleteStyle}
@@ -85,7 +100,20 @@ class PostCategory extends Component {
 					</div>
 				</Link>
 			</Panel>
-
+      <div>
+        {this.state.showComponent ?
+          <EditPost
+            postid ={this.props.id}
+            title={this.props.title}
+            author={this.props.author}
+            body={this.props.body}
+            onSubmitPost={ (data) => {
+              this.handleUpdatePost(data)
+              }}
+            /> :
+         null }
+      </div>
+    </div>
 		);
 	}
 };

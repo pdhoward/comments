@@ -37,10 +37,7 @@ class PostMain extends Component {
 		 }
 		 downVote = () => {
 			 this.props.dispatch(downVotePost(this.props.post.id));
-		 }
-		 edit = () => {
-			 console.log("EDIT")
-		 }
+		 }		 
 		 delete = () => {
 			this.props.dispatch(deletePost(this.props.post.id));
 		 }
@@ -62,12 +59,6 @@ class PostMain extends Component {
 							className={"fa fa-thumbs-o-down fa-2x"}
 							aria-hidden="true"
 							/>
-						<i
-							onClick={() => this.edit(this.props)}
-							style={this.styles3.favoriteStyle}
-							className={"fa fa-pencil fa-2x"}
-							aria-hidden="true"
-						/>
 					<i
 						onClick={() => this.delete(this.props)}
 						style={this.styles3.deleteStyle}

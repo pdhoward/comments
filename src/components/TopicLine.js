@@ -7,6 +7,7 @@ import React, {Component} 		from 'react';
 import { connect } 						from 'react-redux';
 import PropTypes 							from 'prop-types';
 import API                    from '../api';
+import EditPost               from './EditPost'
 import NewComment             from './NewComment'
 import PostTopic  						from './PostTopic';
 import TopicCommentLine 			from './TopicCommentLine';
@@ -18,15 +19,18 @@ import {Row, Col, Button,
 				MenuItem, Panel } 		from 'react-bootstrap';
 import { upVotePost,
  				 downVotePost,
-			   deletePost } 				from '../store/postStore';
+			   deletePost,
+			   getAllPosts} 				from '../store/postStore';
 
 class TopicLine extends Component {
 	constructor(props) {
 		super(props);
 		this.state={
-			showComponent: false
+			showComponent: false,
+			showEdit: false
 		}
 		 this.handleSubmitComment = this.handleSubmitComment.bind(this);
+		 this.handleUpdatePost = this.handleUpdatePost.bind(this);
 	}
 
 	styles = { maxWidth: '2000px',
@@ -69,15 +73,21 @@ downVote = () => {
 	this.props.dispatch(downVotePost(this.props.topic));
 }
 edit = () => {
-	console.log("EDIT")
+	this.setState({showEdit: true})
 }
 delete = () => {
  this.props.dispatch(deletePost(this.props.topic));
 }
 //
+handleUpdatePost = (data) => {
+		this.setState({showEdit: false})
+		let that = this
+		API.editPost(data).then(function(response){
+					console.log("edit post")
+					that.props.dispatch(getAllPosts())
 
-
-
+	})
+}
 
 handleSubmitComment = (data) => {
 		this.setState({showComponent: false})
@@ -155,6 +165,17 @@ renderPost = () => {
 					<div className="Main">
 						<PostTopicContainer>
 							{this.renderPost()}
+
+							<div>
+				        {this.state.showEdit ?
+				          <EditPost
+				            postid ={this.props.topic}				           
+				            onSubmitPost={ (data) => {
+				              this.handleUpdatePost(data)
+				              }}
+				            /> :
+				         null }
+				      </div>
 							<TopicCommentLine />
 						</PostTopicContainer>
 					</div>
