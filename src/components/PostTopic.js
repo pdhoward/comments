@@ -1,15 +1,12 @@
 import React, {Component} 			from 'react';
 import PropTypes 								from 'prop-types';
 import { connect } 							from 'react-redux';
-import {Panel} 									from 'react-bootstrap';
 import '../styles/PostMain.css';
 
 
 class PostTopic extends Component {
 
-
-	render() {
-		let title = this.props.category
+	render() {		
 		return(
 			<div>
 				<br/>

@@ -3,10 +3,7 @@ import React, {Component} 					from 'react';
 import PropTypes 										from 'prop-types';
 import { connect } 									from 'react-redux';
 import serializeForm      					from 'form-serialize'
-import {
-  			closeForm, submitForm,
-				formChange, discardForm
-			}   													from '../store/postFormStore';
+import {formChange }								from '../store/postFormStore';
 import {Button, FormControl,
 				FormGroup, ControlLabel,
 				Col, HelpBlock, Form} 			from 'react-bootstrap';
@@ -25,7 +22,7 @@ class NewComment extends Component {
 		const values = serializeForm(e.target, {hash: true})
     values.parentId = this.props.postid
     console.log(values)
-		this.props.onSubmitPost(values)  
+		this.props.onSubmitPost(values)
 
 	}
 

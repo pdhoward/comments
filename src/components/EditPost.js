@@ -3,10 +3,7 @@ import React, {Component} 					from 'react';
 import PropTypes 										from 'prop-types';
 import { connect } 									from 'react-redux';
 import serializeForm      					from 'form-serialize'
-import {
-  			closeForm, submitForm,
-				formChange, discardForm
-			}   													from '../store/postFormStore';
+import { formChange}   							from '../store/postFormStore';
 import {Button, FormControl,
 				FormGroup, ControlLabel,
 				Col, HelpBlock, Form} 			from 'react-bootstrap';

@@ -5,9 +5,7 @@ import { connect } 						from 'react-redux';
 import PostCategory						from './PostCategory';
 import PropTypes 							from 'prop-types';
 import PostCategoryContainer	from './PostCategoryContainer';
-import {Row, Col,
-				SplitButton,
-				MenuItem} 						from 'react-bootstrap';
+import {Row, Col } 						from 'react-bootstrap';
 
 class CategoryLine extends Component {
 

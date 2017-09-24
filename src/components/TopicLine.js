@@ -12,11 +12,9 @@ import NewComment             from './NewComment'
 import PostTopic  						from './PostTopic';
 import TopicCommentLine 			from './TopicCommentLine';
 import PostTopicContainer   	from './PostTopicContainer';
-import {Link} 							  from 'react-router-dom';
 import { getCommentsForPost } from '../store/commentStore';
 import {Row, Col, Button,
-				SplitButton,
-				MenuItem, Panel } 		from 'react-bootstrap';
+				Panel } 							from 'react-bootstrap';
 import { upVotePost,
  				 downVotePost,
 			   deletePost,
@@ -169,7 +167,7 @@ renderPost = () => {
 							<div>
 				        {this.state.showEdit ?
 				          <EditPost
-				            postid ={this.props.topic}				           
+				            postid ={this.props.topic}
 				            onSubmitPost={ (data) => {
 				              this.handleUpdatePost(data)
 				              }}
