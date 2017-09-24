@@ -82,7 +82,7 @@ export const intentDeleteComment = (commentId) => {
   return { type: actions.INTENT_DELETE, commentId };
 };
 
-export const confirmDeleteComment = (commentId) => {
+export const deleteComment = (commentId) => {
   return (dispatch, getState) => {
     commentId = commentId || getState().comment.delete.id;
     const postId = getState().comment.comments[commentId].parentId;

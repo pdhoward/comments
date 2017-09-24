@@ -10,11 +10,14 @@ class PostTopicComments extends Component {
 	render() {
 
 		return(
-				<Panel className="PostPreview" >
+				<div>
+					<br/>
+					<br/>
+					<h6>{"Comments"}</h6>
 					<section>{this.props.body}</section>
 					<section>{this.props.author}</section>
 					<section>{this.props.votescore}</section>
-				</Panel>
+				</div>
 
 		);
 	}
